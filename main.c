@@ -42,7 +42,6 @@ bool se_gano(void);
 void completar_frase(char letra);
 
 int generar_entero_hasta(int n);
-char a_mayuscula(char c);
 void limpiar_buffer(void);
 
 void asignar_memoria_para_frase_y_palabra(void);
@@ -144,7 +143,7 @@ void empezar_partida(void){
 
 		limpiar_buffer();
 		printf("\n\n Digite una letra: "); scanf(" %c", &letra);
-		letra = a_mayuscula(letra);
+		letra = toupper(letra);
 
 		acierto = hay_acierto(letra);
 
@@ -262,14 +261,7 @@ bool empezar_nueva_partida(void){
 
 	printf("Desea para volver a jugar? (S/N): "); scanf(" %c", &caracter);
 
-	return a_mayuscula(caracter) == 'S';
-}
-
-char a_mayuscula(char c) {
-    if (c >= 'a' && c <= 'z') {
-        return c - 32;
-    }
-    return c;
+	return toupper(caracter) == 'S';
 }
 
 void limpiar_buffer(void){
