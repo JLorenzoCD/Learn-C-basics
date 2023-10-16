@@ -43,7 +43,6 @@ void completar_frase(char letra);
 
 int generar_entero_hasta(int n);
 char a_mayuscula(char c);
-void copiar_string(int tam, const char *original, char copia[]);
 void limpiar_buffer(void);
 
 void asignar_memoria_para_frase_y_palabra(void);
@@ -93,28 +92,28 @@ void obtener_palabra_a_adivinar(void){
 			DATOS_JUEGO.longitud = strlen(FRUTAS[index_palabra_adivinar]);
 
 			asignar_memoria_para_frase_y_palabra();
-			copiar_string(DATOS_JUEGO.longitud, FRUTAS[index_palabra_adivinar], DATOS_JUEGO.palabra_a_adivinar);
+			strcpy(DATOS_JUEGO.palabra_a_adivinar, FRUTAS[index_palabra_adivinar]);
 			break;
 
 		case Animal:
 			DATOS_JUEGO.longitud = strlen(ANIMALES[index_palabra_adivinar]);
 
 			asignar_memoria_para_frase_y_palabra();
-			copiar_string(DATOS_JUEGO.longitud, ANIMALES[index_palabra_adivinar], DATOS_JUEGO.palabra_a_adivinar);
+			strcpy(DATOS_JUEGO.palabra_a_adivinar, ANIMALES[index_palabra_adivinar]);
 			break;
 
 		case Pais:
 			DATOS_JUEGO.longitud = strlen(PAISES[index_palabra_adivinar]);
 
 			asignar_memoria_para_frase_y_palabra();
-			copiar_string(DATOS_JUEGO.longitud, PAISES[index_palabra_adivinar], DATOS_JUEGO.palabra_a_adivinar);
+			strcpy(DATOS_JUEGO.palabra_a_adivinar, PAISES[index_palabra_adivinar]);
 			break;
 
 		case Objeto:
 			DATOS_JUEGO.longitud = strlen(OBJETOS[index_palabra_adivinar]);
 
 			asignar_memoria_para_frase_y_palabra();
-			copiar_string(DATOS_JUEGO.longitud, OBJETOS[index_palabra_adivinar], DATOS_JUEGO.palabra_a_adivinar);
+			strcpy(DATOS_JUEGO.palabra_a_adivinar, OBJETOS[index_palabra_adivinar]);
 			break;
 	}
 
@@ -271,12 +270,6 @@ char a_mayuscula(char c) {
         return c - 32;
     }
     return c;
-}
-
-void copiar_string(int tam, const char *original, char copia[]){
-	for(int i = 0; i < tam; i++){
-		copia[i] = original[i];
-	}
 }
 
 void limpiar_buffer(void){
