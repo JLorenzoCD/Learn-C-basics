@@ -33,8 +33,7 @@ void estableciendo_valores_base_ahorcado(void);
 void empezar_partida(void);
 bool empezar_nueva_partida(void);
 
-void imprimir_cabecera_ahorcado(void);
-void dibujo(void);
+void imprimir_ahorcado(void);
 
 bool hay_acierto(char letra);
 bool se_gano(void);
@@ -139,7 +138,7 @@ void empezar_partida(void){
 	do{
 		acierto = false;
 
-		imprimir_cabecera_ahorcado();
+		imprimir_ahorcado();
 
 		limpiar_buffer();
 		printf("\n\n Digite una letra: "); scanf(" %c", &letra);
@@ -156,7 +155,7 @@ void empezar_partida(void){
 		}
 
 		if (DATOS_JUEGO.intentos == MAX_INTENTOS){
-			imprimir_cabecera_ahorcado();
+			imprimir_ahorcado();
 			printf("\n\n PERDISTE!!\n");
 			printf(" LA SOLUCION ERA: %s\n\n", DATOS_JUEGO.palabra_a_adivinar);
 
@@ -164,7 +163,7 @@ void empezar_partida(void){
 		}
 
 		if (ganado){
-			imprimir_cabecera_ahorcado();
+			imprimir_ahorcado();
 			printf("\n\n FELICIDADES.. GANASTE!!\n\n");
 
 			partida_terminada = true;
@@ -185,14 +184,26 @@ bool se_gano(void){
 	return espacios == 0;
 }
 
-void imprimir_cabecera_ahorcado(void){
+void imprimir_ahorcado(void){
 	system("clear");
+
+	// Cabecera del juego ahorcado, con los datos de la categoria, intentos y puntos.
 	printf("\n\t\t\t\tJUEGO EL AHORCADO\n\n");
 	printf(" CATEGORIA: %s\n\n", NOMBRE_CATEGORIA[DATOS_JUEGO.categoria]);
 	printf(" Intentos Disponibles: %i\t\t\t\tPuntuacion: %i\n\n", 6 - DATOS_JUEGO.intentos, DATOS_JUEGO.puntos);
-	dibujo();
 
-	//IMPRIME EL ARRAY DE CARACTERES FRASE
+	// Dibujando el ahorcado
+	int intentos = DATOS_JUEGO.intentos;
+	printf("\n     _______\n");
+	printf("    |       |\n");
+	printf("    |       %c\n", 0 < intentos ? '0' : ' ');
+	printf("    |      %c%c%c \n", 2 < intentos ? '/' : ' ', 1 < intentos ? '|' : ' ', 3 < intentos ? '\\' : ' ');
+	printf("    |      %c %c \n", 4 < intentos ? '/' : ' ', 5 < intentos ? '\\' : ' ');
+	printf("    |\n");
+	printf("    |\n");
+	printf(" ----------");
+
+	// Imprime la palabra que se va completando
 	printf("\n\n\n");
 	for(int i = 0; i < DATOS_JUEGO.longitud; i++){
 		printf(" %c ",DATOS_JUEGO.frase[i]);
@@ -217,19 +228,6 @@ void completar_frase(char letra){
 			DATOS_JUEGO.frase[i] = DATOS_JUEGO.palabra_a_adivinar[i];
 		}
 	}
-}
-
-void dibujo(void){
-	int intentos = DATOS_JUEGO.intentos;
-
-	printf("\n     _______\n");
-	printf("    |       |\n");
-	printf("    |       %c\n", 0 < intentos ? '0' : ' ');
-	printf("    |      %c%c%c \n", 2 < intentos ? '/' : ' ', 1 < intentos ? '|' : ' ', 3 < intentos ? '\\' : ' ');
-	printf("    |      %c %c \n", 4 < intentos ? '/' : ' ', 5 < intentos ? '\\' : ' ');
-	printf("    |\n");
-	printf("    |\n");
-	printf(" ----------");
 }
 
 int generar_entero_hasta(int n){
