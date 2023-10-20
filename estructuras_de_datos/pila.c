@@ -1,59 +1,75 @@
 # include <stdio.h>
 # include <stdlib.h>
 
-typedef struct elemento {
-    struct elemento *siguiente;
-    char *nombre;
-}elemento;
+typedef struct Nodo {
+    struct Nodo *siguiente;
+    void *dato;
+}Nodo;
 
-elemento *ultimo = NULL;
+typedef struct {
+    Nodo *ultimo;
+}Pila;
 
-void agregar(elemento *elem);
-elemento* quitar(void);
+void inicir_pila(Pila *pila);
+void agregar(Pila *pila, void *dato);
+void* quitar(Pila *pila);
 
 int main(void) {
+    Pila pila_libro;
+    inicir_pila(&pila_libro);
 
-    elemento *uno = (elemento*)malloc(sizeof(elemento));
-    elemento *dos = (elemento*)malloc(sizeof(elemento));
-    elemento *tres = (elemento*)malloc(sizeof(elemento));
+    char libro_uno[] = "1° Libro apilado";
+    char libro_dos[] = "2° Libro apilado";
+    char libro_tres[] = "3° Libro apilado";
 
-    uno->nombre = "1° Libro apilado";
-    dos->nombre = "2° Libro apilado";
-    tres->nombre = "3° Libro apilado";
+    agregar(&pila_libro, libro_uno);
+    agregar(&pila_libro, libro_dos);
+    agregar(&pila_libro, libro_tres);
 
-    agregar(uno);
-    agregar(dos);
-    agregar(tres);
+    char *dato_pila = (char*)quitar(&pila_libro);
+    while (dato_pila != NULL) {
+        printf("%s\n", dato_pila);
 
-    elemento *i = quitar();
-    while (i != NULL) {
-        printf("%s\n", i->nombre);
-
-        // Como hago un free(i), si me tira error aca?
-        i = quitar();
+        dato_pila = (char*)quitar(&pila_libro);
     }
-
 
     return 0;
 }
 
-void agregar(elemento *elem) {
+void inicir_pila(Pila *pila) {
+    pila->ultimo = NULL;
+}
+
+
+void agregar(Pila *pila, void *dato) {
+    Nodo *elem = (Nodo*)malloc(sizeof(Nodo));
+
+    if (elem == NULL) {
+        printf("Error al asignar espacio en memoria");
+        exit(1);
+    }
+
+    elem->dato = dato;
     elem->siguiente = NULL;
 
-    if (ultimo == NULL) {
-        ultimo = elem;
+    if (pila->ultimo == NULL) {
+        pila->ultimo = elem;
     }
     else {
-        elem->siguiente = ultimo;
-        ultimo = elem;
+        elem->siguiente = pila->ultimo;
+        pila->ultimo = elem;
     }
 }
 
-elemento* quitar(void) {
-    if (ultimo == NULL) return NULL;
+void* quitar(Pila *pila) {
+    if (pila->ultimo == NULL) return NULL;
 
-    elemento *elem_quitado = ultimo;
-    ultimo = elem_quitado->siguiente;
+    Nodo *temp = pila->ultimo;
 
-    return elem_quitado;
+    void *dato = temp->dato;
+    pila->ultimo = temp->siguiente;
+
+    free(temp);
+
+    return dato;
 }

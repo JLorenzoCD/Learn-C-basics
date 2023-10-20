@@ -1,61 +1,75 @@
 # include <stdio.h>
 # include <stdlib.h>
 
-typedef struct elemento {
-    struct elemento *siguiente;
-    char *nombre;
-}elemento;
+typedef struct Nodo {
+    struct Nodo *siguiente;
+    void *dato;
+}Nodo;
 
-elemento *primero = NULL;
-elemento *ultimo = NULL;
+typedef struct {
+    Nodo *primero;
+    Nodo *ultimo;
+}Cola;
 
-void agregar(elemento *elem);
-elemento* quitar(void);
+void inicir_cola(Cola *cola);
+void agregar(Cola *cola, void *dato);
+void* quitar(Cola *cola);
 
 int main(void) {
+    Cola cola_libros;
+    inicir_cola(&cola_libros);
 
-    elemento *uno = (elemento*)malloc(sizeof(elemento));
-    elemento *dos = (elemento*)malloc(sizeof(elemento));
-    elemento *tres = (elemento*)malloc(sizeof(elemento));
+    char libro_uno[] = "1° Libro apilado";
+    char libro_dos[] = "2° Libro apilado";
+    char libro_tres[] = "3° Libro apilado";
 
-    uno->nombre = "1° Libro apilado";
-    dos->nombre = "2° Libro apilado";
-    tres->nombre = "3° Libro apilado";
+    agregar(&cola_libros, libro_uno);
+    agregar(&cola_libros, libro_dos);
+    agregar(&cola_libros, libro_tres);
 
-    agregar(uno);
-    agregar(dos);
-    agregar(tres);
-
-    elemento *i = quitar();
-    while (i != NULL) {
-        printf("%s\n", i->nombre);
-
-        // Como hago un free(i), si me tira error aca?
-        i = quitar();
+    char *dato_cola = (char*)quitar(&cola_libros);
+    while (dato_cola != NULL) {
+        printf("%s\n", dato_cola);
+        dato_cola = (char*)quitar(&cola_libros);
     }
-
 
     return 0;
 }
 
-void agregar(elemento *elem) {
+void inicir_cola(Cola *cola) {
+    cola->primero = cola->ultimo = NULL;
+}
+
+void agregar(Cola *cola, void *dato) {
+    Nodo *elem = (Nodo*)malloc(sizeof(Nodo));
+
+    if (elem == NULL) {
+        printf("Error al asignar espacio en memoria");
+        exit(1);
+    }
+
+    elem->dato = dato;
     elem->siguiente = NULL;
 
-    if (primero == NULL) {
-        primero = elem;
-        ultimo = elem;
+    if (cola->primero == NULL) {
+        cola->primero = elem;
+        cola->ultimo = elem;
     }
     else {
-        ultimo->siguiente = elem;
-        ultimo = elem;
+        cola->ultimo->siguiente = elem;
+        cola->ultimo = elem;
     }
 }
 
-elemento* quitar(void) {
-    if (primero == NULL) return NULL;
+void* quitar(Cola *cola) {
+    if (cola->primero == NULL) return NULL;
 
-    elemento *elem_quitado = primero;
-    primero = elem_quitado->siguiente;
+    Nodo *temp = cola->primero;
+    void *dato = temp->dato;
 
-    return elem_quitado;
+    cola->primero = temp->siguiente;
+
+    free(temp);
+
+    return dato;
 }

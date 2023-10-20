@@ -1,55 +1,68 @@
 # include <stdio.h>
 # include <stdlib.h>
 
-typedef struct nodo {
-    struct nodo *siguiente;
-    char *nombre;
-}nodo;
+typedef struct Nodo {
+    struct Nodo *siguiente;
+    void *dato;
+}Nodo;
 
-nodo *primero = NULL;
-nodo *ultimo = NULL;
+typedef struct {
+    Nodo *primero;
+    Nodo *ultimo;
+}ListaEnlazada;
 
-void agregar(nodo *elem);
+void inicir_lista_enlazada(ListaEnlazada *lista);
+void agregar(ListaEnlazada *lista, void *dato);
 
 int main(void) {
+    ListaEnlazada lista_prueba;
+    inicir_lista_enlazada(&lista_prueba);
 
-    nodo *elemento_uno = (nodo*)malloc(sizeof(nodo));
-    nodo *elemento_dos = (nodo*)malloc(sizeof(nodo));
-    nodo *elemento_tres = (nodo*)malloc(sizeof(nodo));
+    char elemento_uno[] = "1° Elemnto de la lista";
+    char elemento_dos[] = "2° Elemnto de la lista";
+    char elemento_tres[] = "3° Elemnto de la lista";
 
-    elemento_uno->nombre = "1° Elemnto de la lista";
-    elemento_dos->nombre = "2° Elemnto de la lista";
-    elemento_tres->nombre = "3° Elemnto de la lista";
+    agregar(&lista_prueba, elemento_uno);
+    agregar(&lista_prueba, elemento_dos);
+    agregar(&lista_prueba, elemento_tres);
 
-    agregar(elemento_uno);
-    agregar(elemento_dos);
-    agregar(elemento_tres);
-
-    nodo *i = primero;
+    Nodo *i = lista_prueba.primero;
     while (i != NULL) {
-        printf("%s\n", i->nombre);
+        printf("%s\n", (char*)i->dato);
         i = i->siguiente;
     }
 
     printf("\nSegunda vuelta\n");
-    i = primero;
+    i = lista_prueba.primero;
     while (i != NULL) {
-        printf("%s\n", i->nombre);
+        printf("%s\n", (char*)i->dato);
         i = i->siguiente;
     }
 
     return 0;
 }
 
-void agregar(nodo *elem) {
-    elem->siguiente = NULL;
+void inicir_lista_enlazada(ListaEnlazada *lista) {
+    lista->primero = lista->ultimo = NULL;
+}
 
-    if (primero == NULL) {
-        primero = elem;
-        ultimo = elem;
+void agregar(ListaEnlazada *lista, void *dato) {
+    Nodo *elem = (Nodo*)malloc(sizeof(Nodo));
+
+    if (elem == NULL) {
+        printf("Error al asignar espacio en memoria");
+        exit(1);
+    }
+
+    elem->siguiente = NULL;
+    elem->dato = dato;
+
+    if (lista->primero == NULL) {
+        lista->primero = elem;
+        lista->ultimo = elem;
     }
     else {
-        ultimo->siguiente = elem;
-        ultimo = elem;
+        lista->ultimo->siguiente = elem;
+        lista->ultimo = elem;
     }
 }
