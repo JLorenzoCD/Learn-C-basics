@@ -1,65 +1,38 @@
+// Modulos estandar
 # include <stdio.h>
 # include <stdlib.h>
 # include <string.h>
-# include <time.h>
 # include <assert.h>
 # include <stdbool.h>
-# include <ctype.h>
 
-# define MAX_INTENTOS 6
-
-typedef enum { Fruta, Animal, Pais, Objeto }Categoria;
-const char *NOMBRE_CATEGORIA[] = { "Frutas","Animales","Paises","Objetos" };
-
-const char FRUTAS[10][15] = { "MELON","PAPAYA","SANDIA","MANZANA","PERA","NARANJA","UVA","CEREZA","CIRUELA","KIWI" };
-const char ANIMALES[10][15] = { "PERRO","GATO","CABALLO","GALLINA","JIRAFA","MONO","VACA","CONEJO","TORTUGA","LOBO" };
-const char PAISES[10][15] = { "PERU","COLOMBIA","ARGENTINA","NICARAGUA","ITALIA","MEXICO","CANADA","VENEZUELA","ECUADOR","BRASIL" };
-const char OBJETOS[10][15] = { "MOCHILA","RELOJ","ZAPATILLA","MUEBLE","CUADERNO","SILLA","MESA","CELULAR","PUERTA","AURICULARES" };
-
-typedef struct {
-	int intentos;
-	int puntos;
-
-	Categoria categoria;
-
-	int longitud;
-	char *palabra_a_adivinar;
-	char *frase;
-
-} JuegoAhorcado;
+// Mis modulos
+# include "tipos.h"
+# include "constantes.h"
+# include "imprimir.h"
+# include "utilidades.h"
 
 void seleccionar_categoria(void);
 void obtener_palabra_a_adivinar(void);
-void estableciendo_valores_base_ahorcado(void);
+void iniciar_juego(void);
 void empezar_partida(void);
-bool empezar_nueva_partida(void);
-
-void imprimir_ahorcado(void);
 
 bool hay_acierto(char letra);
 bool se_gano(void);
 
 void completar_frase(char letra);
 
-int generar_entero_hasta(int n);
-void limpiar_buffer(void);
-
 void asignar_memoria_para_frase_y_palabra(void);
-
-JuegoAhorcado DATOS_JUEGO;
 
 int main(void) {
 	bool continuar_jugando = true;
 	do {
-		estableciendo_valores_base_ahorcado();
+		iniciar_juego();
 		empezar_partida();
 
-		continuar_jugando = empezar_nueva_partida();
+		continuar_jugando = imprimir_pregunta_seguir_jugando();
 	} while (continuar_jugando);
 
-	printf("\n\n#############################################\n");
-	printf("              Gracias por jugar!!");
-	printf("\n#############################################\n\n");
+	imprimir_msg_fin();
 
 	return 0;
 }
@@ -67,13 +40,7 @@ int main(void) {
 void seleccionar_categoria(void) {
 	int op;
 	do {
-		system("clear");
-		printf("\n\t\t\t\tJUEGO EL AHORCADO\n\n");
-		printf(" CATEGORIAS\n\n");
-		printf(" 1. Frutas\n");
-		printf(" 2. Animales\n");
-		printf(" 3. Paises\n");
-		printf(" 4. Objetos\n\n");
+		imprimir_opciones_categorias();
 
 		printf(" Ingresa una opcion: "); scanf("%i", &op);
 	} while (!(1 <= op && op <= 4));
@@ -121,7 +88,7 @@ void obtener_palabra_a_adivinar(void) {
 	}
 }
 
-void estableciendo_valores_base_ahorcado(void) {
+void iniciar_juego(void) {
 	seleccionar_categoria();
 	obtener_palabra_a_adivinar();
 
@@ -156,16 +123,13 @@ void empezar_partida(void) {
 		}
 
 		if (DATOS_JUEGO.intentos == MAX_INTENTOS) {
-			imprimir_ahorcado();
-			printf("\n\n PERDISTE!!\n");
-			printf(" LA SOLUCION ERA: %s\n\n", DATOS_JUEGO.palabra_a_adivinar);
+			imprimir_msg_perdiste();
 
 			partida_terminada = true;
 		}
 
 		if (ganado) {
-			imprimir_ahorcado();
-			printf("\n\n FELICIDADES.. GANASTE!!\n\n");
+			imprimir_msg_ganaste();
 
 			partida_terminada = true;
 		}
@@ -185,31 +149,6 @@ bool se_gano(void) {
 	return espacios == 0;
 }
 
-void imprimir_ahorcado(void) {
-	system("clear");
-
-	// Cabecera del juego ahorcado, con los datos de la categoria, intentos y puntos.
-	printf("\n\t\t\t\tJUEGO EL AHORCADO\n\n");
-	printf(" CATEGORIA: %s\n\n", NOMBRE_CATEGORIA[DATOS_JUEGO.categoria]);
-	printf(" Intentos Disponibles: %i\t\t\t\tPuntuacion: %i\n\n", 6 - DATOS_JUEGO.intentos, DATOS_JUEGO.puntos);
-
-	// Dibujando el ahorcado
-	int intentos = DATOS_JUEGO.intentos;
-	printf("\n     _______\n");
-	printf("    |       |\n");
-	printf("    |       %c\n", 0 < intentos ? '0' : ' ');
-	printf("    |      %c%c%c \n", 2 < intentos ? '/' : ' ', 1 < intentos ? '|' : ' ', 3 < intentos ? '\\' : ' ');
-	printf("    |      %c %c \n", 4 < intentos ? '/' : ' ', 5 < intentos ? '\\' : ' ');
-	printf("    |\n");
-	printf("    |\n");
-	printf(" ----------");
-
-	// Imprime la palabra que se va completando
-	printf("\n\n\n");
-	for (int i = 0; i < DATOS_JUEGO.longitud; i++) {
-		printf(" %c ", DATOS_JUEGO.frase[i]);
-	}
-}
 
 bool hay_acierto(char letra) {
 	bool encontrado = false;
@@ -217,8 +156,6 @@ bool hay_acierto(char letra) {
 	if (strchr(DATOS_JUEGO.palabra_a_adivinar, letra) != NULL) {
 		encontrado = true;
 	}
-
-	printf("LETRA = %c\n\n", letra);
 
 	return encontrado;
 }
@@ -231,16 +168,6 @@ void completar_frase(char letra) {
 	}
 }
 
-int generar_entero_hasta(int n) {
-	srand(time(NULL));
-
-	if (n <= 0) {
-		return rand() % 10;
-	}
-
-	return rand() % n;
-}
-
 void asignar_memoria_para_frase_y_palabra(void) {
 	int largo_str = DATOS_JUEGO.longitud + 1; // Termina en \0
 
@@ -251,19 +178,4 @@ void asignar_memoria_para_frase_y_palabra(void) {
 		printf("Ocurrio un error al asignar espacio en la memoria\n");
 		exit(1);
 	}
-}
-
-bool empezar_nueva_partida(void) {
-	char caracter;
-
-	limpiar_buffer();
-
-	printf("Desea para volver a jugar? (S/N): "); scanf(" %c", &caracter);
-
-	return toupper(caracter) == 'S';
-}
-
-void limpiar_buffer(void) {
-	int c;
-	while ((c = getchar()) != '\n' && c != EOF) {}
 }
