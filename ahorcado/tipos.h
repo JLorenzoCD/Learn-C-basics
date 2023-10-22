@@ -1,9 +1,9 @@
 #if !defined(_TIPOS_H_)
 
 #define _TIPOS_H_
-typedef enum { Fruta, Animal, Pais, Objeto }Categoria;
+typedef enum Categoria { Fruta, Animal, Pais, Objeto }Categoria;
 
-typedef struct {
+typedef struct JuegoAhorcado {
 	int intentos;
 	int puntos;
 

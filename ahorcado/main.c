@@ -52,35 +52,24 @@ void seleccionar_categoria(void) {
 void obtener_palabra_a_adivinar(void) {
 	int index_palabra_adivinar = generar_entero_hasta(10);
 
+	char *palabra_adivinar;
 	switch (DATOS_JUEGO.categoria) {
 	case Fruta:
-		DATOS_JUEGO.longitud = strlen(FRUTAS[index_palabra_adivinar]);
-
-		asignar_memoria_para_frase_y_palabra();
-		strcpy(DATOS_JUEGO.palabra_a_adivinar, FRUTAS[index_palabra_adivinar]);
-		break;
+		palabra_adivinar = FRUTAS[index_palabra_adivinar];break;
 
 	case Animal:
-		DATOS_JUEGO.longitud = strlen(ANIMALES[index_palabra_adivinar]);
-
-		asignar_memoria_para_frase_y_palabra();
-		strcpy(DATOS_JUEGO.palabra_a_adivinar, ANIMALES[index_palabra_adivinar]);
-		break;
+		palabra_adivinar = ANIMALES[index_palabra_adivinar];break;
 
 	case Pais:
-		DATOS_JUEGO.longitud = strlen(PAISES[index_palabra_adivinar]);
-
-		asignar_memoria_para_frase_y_palabra();
-		strcpy(DATOS_JUEGO.palabra_a_adivinar, PAISES[index_palabra_adivinar]);
-		break;
+		palabra_adivinar = PAISES[index_palabra_adivinar];break;
 
 	case Objeto:
-		DATOS_JUEGO.longitud = strlen(OBJETOS[index_palabra_adivinar]);
-
-		asignar_memoria_para_frase_y_palabra();
-		strcpy(DATOS_JUEGO.palabra_a_adivinar, OBJETOS[index_palabra_adivinar]);
-		break;
+		palabra_adivinar = OBJETOS[index_palabra_adivinar];break;
 	}
+
+	DATOS_JUEGO.longitud = strlen(palabra_adivinar);
+	asignar_memoria_para_frase_y_palabra();
+	strcpy(DATOS_JUEGO.palabra_a_adivinar, palabra_adivinar);
 
 	// Estableciendo las letras de la frase a adivinar como caracteres '_'
 	for (int i = 0; i < DATOS_JUEGO.longitud; i++) {
@@ -99,11 +88,11 @@ void iniciar_juego(void) {
 void empezar_partida(void) {
 	char letra;
 	bool partida_terminada = false;
-	bool acierto;
+	bool se_aserto;
 	bool ganado = false;
 
 	do {
-		acierto = false;
+		se_aserto = false;
 
 		imprimir_ahorcado();
 
@@ -111,9 +100,9 @@ void empezar_partida(void) {
 		printf("\n\n Digite una letra: "); scanf(" %c", &letra);
 		letra = toupper(letra);
 
-		acierto = hay_acierto(letra);
+		se_aserto = hay_acierto(letra);
 
-		if (acierto) {
+		if (se_aserto) {
 			completar_frase(letra);
 			ganado = se_gano();
 		}
@@ -148,7 +137,6 @@ bool se_gano(void) {
 
 	return espacios == 0;
 }
-
 
 bool hay_acierto(char letra) {
 	bool encontrado = false;
