@@ -8,6 +8,7 @@
 # include <ctype.h>
 
 // Mis modulos
+# include "global.h"
 # include "constantes.h"
 # include "utilidades.h"
 

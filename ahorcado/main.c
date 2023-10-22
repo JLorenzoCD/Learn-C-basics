@@ -7,6 +7,7 @@
 
 // Mis modulos
 # include "tipos.h"
+# include "global.h"
 # include "constantes.h"
 # include "imprimir.h"
 # include "utilidades.h"
