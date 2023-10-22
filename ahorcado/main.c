@@ -52,7 +52,7 @@ void seleccionar_categoria(void) {
 void obtener_palabra_a_adivinar(void) {
 	int index_palabra_adivinar = generar_entero_hasta(10);
 
-	char *palabra_adivinar;
+	const char *palabra_adivinar;
 	switch (DATOS_JUEGO.categoria) {
 	case Fruta:
 		palabra_adivinar = FRUTAS[index_palabra_adivinar];break;
@@ -128,14 +128,13 @@ void empezar_partida(void) {
 }
 
 bool se_gano(void) {
-	int espacios = 0;
+	bool falta_adivinar_letra = false;
 
-	for (int i = 0; i < DATOS_JUEGO.longitud; i++) {
-		if (DATOS_JUEGO.frase[i] == '_')
-			espacios++;
+	for (int i = 0; i < DATOS_JUEGO.longitud && !falta_adivinar_letra; i++) {
+		if (DATOS_JUEGO.frase[i] == '_') falta_adivinar_letra = true;
 	}
 
-	return espacios == 0;
+	return !falta_adivinar_letra;
 }
 
 bool hay_acierto(char letra) {
