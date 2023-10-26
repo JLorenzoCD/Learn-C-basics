@@ -1,6 +1,12 @@
 # include <stdio.h>
 # include <stdlib.h>
 
+// MACROS para mascara de bits
+# define ESTA_PRENDIDO_EL_BIT(bits, a_consultar) (bits & (a_consultar))
+# define ENCENDER_BIT(bits, a_prender) (bits | (a_prender))
+# define APAGAR_BIT(bits, a_apagar) (bits & (~(a_apagar)))
+# define INTERCAMBIAR_BIT(bits, a_intercambiar) (bits ^ (a_intercambiar))
+
 // MASCARA DE BITS para los colores
 # define ROJO     1 << 7
 # define VERDE    1 << 6
@@ -46,38 +52,38 @@ void print_letras_en_colores(int tam, char palabra[], unsigned char color) {
         }
 
         // Se revisa si el color esta en la variable auxiliar
-        if (copia_aux & ROJO) {
+        if (ESTA_PRENDIDO_EL_BIT(copia_aux, ROJO)) {
             printf("\033[1;31m"); // Coloca el color a el siguiente caracter
 
-            copia_aux = copia_aux & (~(ROJO));  // Se elimina el color de la variable aux
+            copia_aux = APAGAR_BIT(copia_aux, ROJO);  // Se elimina el color de la variable aux
         } // Se realiza lo mismo que en ROJO
-        else if (copia_aux & VERDE) {
+        else if (ESTA_PRENDIDO_EL_BIT(copia_aux, VERDE)) {
             printf("\033[1;32m");
-            copia_aux = copia_aux & (~(VERDE));
+            copia_aux = APAGAR_BIT(copia_aux, VERDE);
         }
-        else if (copia_aux & MARRON) {
+        else if (ESTA_PRENDIDO_EL_BIT(copia_aux, MARRON)) {
             printf("\033[1;33m");
-            copia_aux = copia_aux & (~(MARRON));
+            copia_aux = APAGAR_BIT(copia_aux, MARRON);
         }
-        else if (copia_aux & AZUL) {
+        else if (ESTA_PRENDIDO_EL_BIT(copia_aux, AZUL)) {
             printf("\033[1;34m");
-            copia_aux = copia_aux & (~(AZUL));
+            copia_aux = APAGAR_BIT(copia_aux, AZUL);
         }
-        else if (copia_aux & PURPURA) {
+        else if (ESTA_PRENDIDO_EL_BIT(copia_aux, PURPURA)) {
             printf("\033[1;35m");
-            copia_aux = copia_aux & (~(PURPURA));
+            copia_aux = APAGAR_BIT(copia_aux, PURPURA);
         }
-        else if (copia_aux & CYAN) {
+        else if (ESTA_PRENDIDO_EL_BIT(copia_aux, CYAN)) {
             printf("\033[1;36m");
-            copia_aux = copia_aux & (~(CYAN));
+            copia_aux = APAGAR_BIT(copia_aux, CYAN);
         }
-        else if (copia_aux & GRIS) {
+        else if (ESTA_PRENDIDO_EL_BIT(copia_aux, GRIS)) {
             printf("\033[1;37m");
-            copia_aux = copia_aux & (~(GRIS));
+            copia_aux = APAGAR_BIT(copia_aux, GRIS);
         }
-        else if (copia_aux & NEGRO) {
+        else if (ESTA_PRENDIDO_EL_BIT(copia_aux, NEGRO)) {
             printf("\033[0m");
-            copia_aux = copia_aux & (~(NEGRO));
+            copia_aux = APAGAR_BIT(copia_aux, NEGRO);
         }
 
         printf("%c", palabra[i]); // Se imprime el caracter con un color seleccionado
