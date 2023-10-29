@@ -4,7 +4,15 @@
 			"type": "cppbuild",
 			"label": "C/C++: gcc compilar archivo activo",
 			"command": "/usr/bin/gcc",
-			"args": ["-fdiagnostics-color=always", "-Wall", "-Wextra", "-g", "*.c", "-o", "${fileDirname}/main.out"],
+			"args": [
+				"-fdiagnostics-color=always",
+				"-Wall",
+				"-Wextra",
+				"-g",
+				"$(find . -name '*.c')",
+				"-o",
+				"${fileDirname}/main.out"
+			],
 			"options": {
 				"cwd": "${fileDirname}"
 			},
