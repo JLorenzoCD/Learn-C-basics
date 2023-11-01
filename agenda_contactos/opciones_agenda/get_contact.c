@@ -1,12 +1,18 @@
 # include "../opciones_agenda.h"
 
-enum OpcionBuscarContacto { IR_MENU, NOMBRE, APELLIDO, TELEFONO, EMAIL };
+enum OpcionBuscarContacto { IR_MENU, BUSCAR_NOMBRE, BUSCAR_APELLIDO, BUSCAR_TELEFONO, BUSCAR_EMAIL };
 typedef enum OpcionBuscarContacto OpcionBuscarContacto;
 
 void buscar_contacto(void) {
-    int op = -1;
+    int op;
+
+    unsigned int len_contactos_filtrados = 0;
+    Contacto **contactos_filtrados = NULL;
 
     do {
+        system("clear");
+
+        op = -1;
         puts("########### Busqueda de contacto ###########");
         puts("Por cual de las siguientes propiedades deseas buscar a tu contacto?");
         puts("1) Nombre.");
@@ -16,33 +22,49 @@ void buscar_contacto(void) {
 
         puts("0) Ir al menu.");
 
-        printf("Opcion (0-4): "); scanf("%i", &op);
+        op = obtener_opcion_valida(IR_MENU, BUSCAR_EMAIL);
 
-        if (!(IR_MENU <= op && op <= EMAIL)) {
-            system("clear");
-            puts("\nOpcion no valida!!\n");
+        char *valor_buscar;
+        system("clear");
+
+        switch (op) {
+        case BUSCAR_NOMBRE:
+            puts("BUSCAR POR NOMBRE");
+
+            valor_buscar = obtener_texto("Ingrese el nombre del contacto a buscar: ");
+
+            contactos_filtrados = contacto_filtrar_por_propiedad(GLOBAL_LEN_CONTACTOS, GLOBAL_CONTACTOS, CONTACTO_NOMBRE, valor_buscar);break;
+        case BUSCAR_APELLIDO:
+            puts("BUSCAR POR APELLIDO");
+
+            valor_buscar = obtener_texto("Ingrese el apellido del contacto a buscar: ");
+
+            contactos_filtrados = contacto_filtrar_por_propiedad(GLOBAL_LEN_CONTACTOS, GLOBAL_CONTACTOS, CONTACTO_APELLIDO, valor_buscar);break;
+        case BUSCAR_TELEFONO:
+            puts("BUSCAR POR TELEFONO");
+
+            valor_buscar = obtener_texto("Ingrese el telefono del contacto a buscar: ");
+
+            contactos_filtrados = contacto_filtrar_por_propiedad(GLOBAL_LEN_CONTACTOS, GLOBAL_CONTACTOS, CONTACTO_TELEFONO, valor_buscar);break;
+        case BUSCAR_EMAIL:
+            puts("BUSCAR POR EMAIL");
+
+            valor_buscar = obtener_texto("Ingrese el email del contacto a buscar: ");
+
+            contactos_filtrados = contacto_filtrar_por_propiedad(GLOBAL_LEN_CONTACTOS, GLOBAL_CONTACTOS, CONTACTO_EMAIL, valor_buscar);break;
         }
 
-    } while (!(IR_MENU <= op && op <= EMAIL));
+        if (op != IR_MENU) {
+            len_contactos_filtrados = contacto_array_len(contactos_filtrados);
+            contacto_imprimir_array(len_contactos_filtrados, contactos_filtrados);
 
-    system("clear");
-    switch (op) {
-    case NOMBRE:
-        puts("BUSCAR POR NOMBRE");
-        break;
-    case APELLIDO:
-        puts("BUSCAR POR APELLIDO");
+            free(contactos_filtrados);
+            contactos_filtrados = NULL;
 
-        break;
-    case TELEFONO:
-        puts("BUSCAR POR TELEFONO");
+            len_contactos_filtrados = 0;
 
-        break;
-    case EMAIL:
-        puts("BUSCAR POR EMAIL");
-        break;
-    case IR_MENU:
-        puts("YENDO AL MENU");
-        return;
-    }
+            pausar_terminal();
+        }
+
+    } while (op != IR_MENU);
 }

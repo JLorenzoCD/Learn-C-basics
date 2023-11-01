@@ -61,18 +61,16 @@ void contacto_destruir(Contacto *contacto) {
     free(contacto->email);
 
     free(contacto);
-    // contacto = NULL;
+    contacto = NULL;
 }
 
 void contacto_destruir_array(unsigned int len, Contacto **contactos) {
     for (unsigned int i = 0; i < len; i++) {
         contacto_destruir(contactos[i]);
     }
-
 }
 
 void contacto_imprimir(Contacto *contacto) {
-    puts("-------------------------------");
     printf("Nombre: %s\n", contacto->nombre);
     printf("Apellido: %s\n", contacto->apellido);
     printf("Tel.: %s\n", contacto->telefono);
@@ -81,6 +79,7 @@ void contacto_imprimir(Contacto *contacto) {
 
 void contacto_imprimir_array(unsigned int tam, Contacto *contactos[]) {
     for (unsigned int i = 0; i < tam; i++) {
+        puts("-------------------------------");
         contacto_imprimir(contactos[i]);
     }
     puts("-------------------------------");
@@ -94,11 +93,69 @@ Contacto *contacto_clonar(Contacto *contacto_a_clonar) {
         contacto_a_clonar->email
     );
 }
+
+bool contacto_tiene_valor(Contacto *contacto, Contacto_Propiedades propiedad, char valor[]) {
+    bool tiene_valor = false;
+
+    switch (propiedad) {
+    case CONTACTO_APELLIDO:
+        if (strcmp(contacto->apellido, valor) == 0) {
+            tiene_valor = true;
+        }break;
+
+    case CONTACTO_NOMBRE:
+        if (strcmp(contacto->nombre, valor) == 0) {
+            tiene_valor = true;
+        }break;
+
+    case CONTACTO_TELEFONO:
+        if (strcmp(contacto->telefono, valor) == 0) {
+            tiene_valor = true;
+        }break;
+
+    case CONTACTO_EMAIL:
+        if (strcmp(contacto->email, valor) == 0) {
+            tiene_valor = true;
+        }break;
+    }
+
+    return tiene_valor;
+}
+
+Contacto **contacto_filtrar_por_propiedad(unsigned int tam, Contacto *contactos[], Contacto_Propiedades propiedad, char valor[]) {
+    Contacto **contactos_filtrados = (Contacto**)malloc(sizeof(Contacto*) * tam);
+    int indice_filtrados = 0;
+
+    for (unsigned int i = 0; i < tam; i++) {
+        if (contacto_tiene_valor(contactos[i], propiedad, valor)) {
+            contactos_filtrados[indice_filtrados] = contactos[i];
+
+            indice_filtrados++;
+        }
+    }
+
+    contactos_filtrados = (Contacto**)realloc(contactos_filtrados, sizeof(Contacto*) * (indice_filtrados + 1));
+    contactos_filtrados[indice_filtrados] = NULL;   // Marcar el final del arreglo
+
+    return contactos_filtrados;
+}
+
+unsigned int contacto_array_len(Contacto *contactos[]) {
+    unsigned int i = 0;
+
+    while (contactos[i] != NULL) {
+        i++;
+    }
+
+    return i;
+}
+
 // Temas de prueba
 Contacto **contacto_prueba_array(unsigned int contactos_a_generar) {
-    Contacto *contacto_prueba = contacto_crear("Lorenzo", "Canvoas", "484866634515", "lorenzo.canovas@gmail.com");
+    Contacto *contacto_prueba1 = contacto_crear("Lorenzo", "Canovas", "484866634515", "lorenzo.canovas@gmail.com");
+    Contacto *contacto_prueba2 = contacto_crear("Pepe", "Fereira", "4154126541", "pepe.fereira@gmail.com");
 
-    Contacto **contactos = (Contacto**)malloc(sizeof(Contacto*) * contactos_a_generar);
+    Contacto **contactos = (Contacto**)malloc(sizeof(Contacto*) * (contactos_a_generar));
 
     if (contactos == NULL) {
         puts("Error al asignar memoria en 'contacto_prueba_array'");
@@ -106,10 +163,16 @@ Contacto **contacto_prueba_array(unsigned int contactos_a_generar) {
     }
 
     for (unsigned int i = 0; i < contactos_a_generar; i++) {
-        contactos[i] = contacto_clonar(contacto_prueba);
+        if (i % 2 == 0) {
+            contactos[i] = contacto_clonar(contacto_prueba1);
+        }
+        else {
+            contactos[i] = contacto_clonar(contacto_prueba2);
+        }
     }
 
-    contacto_destruir(contacto_prueba);
+    contacto_destruir(contacto_prueba1);
+    contacto_destruir(contacto_prueba2);
 
     return contactos;
 }

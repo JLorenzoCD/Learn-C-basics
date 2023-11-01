@@ -1,13 +1,20 @@
 // Modulos estandar
 # include <stdio.h>
+# include <stdbool.h>
 
 // Mis modulos
 # include "opciones_agenda.h"
 
 int main(void) {
-    int op = -1;
+    int op;
+
+    if (GLOBAL_CONTACTOS == NULL) {
+        GLOBAL_LEN_CONTACTOS = 4;
+        GLOBAL_CONTACTOS = contacto_prueba_array(GLOBAL_LEN_CONTACTOS);
+    }
 
     do {
+        op = -1;
         // system("clear");
         puts("        AGENDA DE CONTACTO");
         puts("Seleccione alguna de las siguientes opciones:");
@@ -18,31 +25,28 @@ int main(void) {
         puts("5) Eliminar contacto.");
         puts("0) Salir de la agenda.");
 
-        printf("Opcion (0-5): "); scanf("%i", &op);
+        op = obtener_opcion_valida(CLOSE, DELETE);
 
-        if (!(CLOSE <= op && op <= DELETE)) {
-            system("clear");
-            puts("\nOpcion no valida!!\n");
+        switch (op) {
+        case GET_ALL:
+            mostrar_todos_contactos();break;
+        case GET:
+            buscar_contacto();break;
+        case STORE:
+            nuevo_contacto();break;
+        case UPDATE:
+            puts("4) Editar contacto.");break;
+        case DELETE:
+            puts("5) Eliminar contacto.");break;
+        case CLOSE:
+            puts("\nCerrando la agenda de contactos.");
         }
 
-    } while (!(CLOSE <= op && op <= DELETE));
+    } while (op != CLOSE);
 
-    system("clear");
-    switch (op) {
-    case GET_ALL:
-        mostrar_todos_contactos();break;
-    case GET:
-        buscar_contacto();break;
-    case STORE:
-        puts("3) Agregar un nuevo contacto.");break;
-    case UPDATE:
-        puts("4) Editar contacto.");break;
-    case DELETE:
-        puts("5) Eliminar contacto.");break;
-    case CLOSE:
-        puts("0) Salir de la agenda.");
-        exit(0);break;
-    }
+    contacto_destruir_array(GLOBAL_LEN_CONTACTOS, GLOBAL_CONTACTOS);
+    free(GLOBAL_CONTACTOS);
+    GLOBAL_CONTACTOS = NULL;
 
     return 0;
 }
