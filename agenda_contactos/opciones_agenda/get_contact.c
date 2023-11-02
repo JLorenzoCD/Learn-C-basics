@@ -25,7 +25,7 @@ void buscar_contacto(void) {
         op = obtener_opcion_valida(IR_MENU, BUSCAR_EMAIL);
 
         char *valor_buscar;
-        system("clear");
+        // system("clear");
 
         switch (op) {
         case BUSCAR_NOMBRE:

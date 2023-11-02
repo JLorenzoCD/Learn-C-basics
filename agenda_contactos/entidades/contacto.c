@@ -99,22 +99,22 @@ bool contacto_tiene_valor(Contacto *contacto, Contacto_Propiedades propiedad, ch
 
     switch (propiedad) {
     case CONTACTO_APELLIDO:
-        if (strcmp(contacto->apellido, valor) == 0) {
+        if (strcasecmp(contacto->apellido, valor) == 0) {
             tiene_valor = true;
         }break;
 
     case CONTACTO_NOMBRE:
-        if (strcmp(contacto->nombre, valor) == 0) {
+        if (strcasecmp(contacto->nombre, valor) == 0) {
             tiene_valor = true;
         }break;
 
     case CONTACTO_TELEFONO:
-        if (strcmp(contacto->telefono, valor) == 0) {
+        if (strcasecmp(contacto->telefono, valor) == 0) {
             tiene_valor = true;
         }break;
 
     case CONTACTO_EMAIL:
-        if (strcmp(contacto->email, valor) == 0) {
+        if (strcasecmp(contacto->email, valor) == 0) {
             tiene_valor = true;
         }break;
     }
