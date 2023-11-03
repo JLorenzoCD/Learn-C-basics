@@ -5,6 +5,7 @@ int obtener_opcion_valida(int primera_opcion, int ultima_opcion) {
 
     do {
         printf("Opcion (%i-%i): ", primera_opcion, ultima_opcion); scanf(" %i", &op);
+        limpiar_buffer();
 
         if (!(primera_opcion <= op && op <= ultima_opcion)) {
             puts("\nOpcion no valida!!\n");
@@ -21,11 +22,13 @@ char *obtener_texto(char descripcion[]) {
 
     printf("%s", descripcion);
 
-    limpiar_buffer();
     fgets(buffer, sizeof(buffer), stdin);
 
     if (strlen(buffer) > 0 && buffer[strlen(buffer) - 1] == '\n') {
         buffer[strlen(buffer) - 1] = '\0';
+    }
+    else {
+        limpiar_buffer();
     }
 
     unsigned int len_input = strlen(buffer) + 1;
@@ -44,6 +47,5 @@ void limpiar_buffer(void) {
 
 void pausar_terminal(void) {
     puts("Presiona ENTER para continuar.....");
-    limpiar_buffer();
     getchar();
 }
