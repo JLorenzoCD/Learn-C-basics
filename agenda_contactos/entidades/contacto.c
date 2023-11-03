@@ -1,5 +1,12 @@
 # include "../entidades.h"
 
+struct Contacto {
+    char *nombre;
+    char *apellido;
+    char *telefono;
+    char *email;
+};
+
 Contacto *contacto_crear(char nombre[], char apellido[], char telefono[], char email[]) {
     Contacto *nuevo_contacto = (Contacto*)malloc(sizeof(Contacto));
 

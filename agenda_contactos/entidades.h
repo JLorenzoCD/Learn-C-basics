@@ -6,17 +6,11 @@
 # include <stdio.h>
 # include <stdbool.h>
 
-// Entidad Contacto
-struct Contacto {
-    char *nombre;
-    char *apellido;
-    char *telefono;
-    char *email;
-};
-
 enum Contacto_Propiedades { CONTACTO_NOMBRE, CONTACTO_APELLIDO, CONTACTO_TELEFONO, CONTACTO_EMAIL };
 
+// Tipo Opaco ( CONTACTO )
 typedef struct Contacto Contacto;
+
 typedef enum Contacto_Propiedades Contacto_Propiedades;
 
 Contacto *contacto_crear(char nombre[], char apellido[], char telefono[], char email[]);
