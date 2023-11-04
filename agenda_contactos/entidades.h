@@ -5,6 +5,7 @@
 # include <string.h>
 # include <stdio.h>
 # include <stdbool.h>
+# include <stdint.h>
 
 enum Contacto_Propiedades { CONTACTO_NOMBRE, CONTACTO_APELLIDO, CONTACTO_TELEFONO, CONTACTO_EMAIL };
 
@@ -16,14 +17,15 @@ typedef enum Contacto_Propiedades Contacto_Propiedades;
 Contacto *contacto_crear(char nombre[], char apellido[], char telefono[], char email[]);
 
 void contacto_destruir(Contacto *contacto);
-void contacto_destruir_array(unsigned int len, Contacto **contactos);
+void contacto_destruir_array(size_t len, Contacto **contactos);
 
 void contacto_imprimir(Contacto *contacto);
-void contacto_imprimir_array(unsigned int tam, Contacto *contactos[]);
+void contacto_imprimir_array(size_t tam, Contacto *contactos[]);
 
-unsigned int contacto_array_len(Contacto *contactos[]);
+size_t contacto_array_len(Contacto *contactos[]);
 bool contacto_tiene_valor(Contacto *contacto, Contacto_Propiedades propiedad, char valor[]);
-Contacto **contacto_filtrar_por_propiedad(unsigned int tam, Contacto *contactos[], Contacto_Propiedades propiedad, char valor[]);
+Contacto **contacto_filtrar_por_propiedad(size_t tam, Contacto *contactos[], Contacto_Propiedades propiedad, char valor[]);
+bool contacto_array_eliminar(size_t *tam, Contacto *contactos[], Contacto_Propiedades propiedad, char valor[]);
 
 // Temas de prueba
-Contacto **contacto_prueba_array(unsigned int contactos_a_generar);
+Contacto **contacto_prueba_array(size_t contactos_a_generar);

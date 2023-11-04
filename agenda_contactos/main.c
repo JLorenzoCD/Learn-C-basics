@@ -37,7 +37,7 @@ int main(void) {
         case UPDATE:
             puts("4) Editar contacto.");break;
         case DELETE:
-            puts("5) Eliminar contacto.");break;
+            eliminar_contacto();break;
         case CLOSE:
             puts("\nCerrando la agenda de contactos.");
         }

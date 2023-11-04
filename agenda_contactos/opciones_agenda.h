@@ -3,6 +3,7 @@
 // Modulos estandar
 # include <stdlib.h>
 # include <string.h>
+# include <stdbool.h>
 
 // Mis modulos
 # include "entidades.h"
@@ -17,3 +18,4 @@ typedef enum OpcionesAgenda OpcionesAgenda;
 void mostrar_todos_contactos(void);
 void buscar_contacto(void);
 void nuevo_contacto(void);
+void eliminar_contacto(void);

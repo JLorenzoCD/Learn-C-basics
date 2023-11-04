@@ -8,4 +8,4 @@
 
 // Globales
 extern Contacto **GLOBAL_CONTACTOS;
-extern unsigned int GLOBAL_LEN_CONTACTOS;
+extern size_t GLOBAL_LEN_CONTACTOS;

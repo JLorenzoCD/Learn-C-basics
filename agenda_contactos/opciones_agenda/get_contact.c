@@ -6,7 +6,7 @@ typedef enum OpcionBuscarContacto OpcionBuscarContacto;
 void buscar_contacto(void) {
     int op;
 
-    unsigned int len_contactos_filtrados = 0;
+    size_t len_contactos_filtrados = 0;
     Contacto **contactos_filtrados = NULL;
     char *valor_buscar = NULL;
 
