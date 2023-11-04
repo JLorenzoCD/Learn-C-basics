@@ -129,11 +129,11 @@ bool contacto_tiene_valor(Contacto *contacto, Contacto_Propiedades propiedad, ch
     return tiene_valor;
 }
 
-Contacto **contacto_filtrar_por_propiedad(size_t tam, Contacto *contactos[], Contacto_Propiedades propiedad, char valor[]) {
-    Contacto **contactos_filtrados = (Contacto**)malloc(sizeof(Contacto*) * tam);
+Contacto **contacto_filtrar_por_propiedad(size_t *tam, Contacto *contactos[], Contacto_Propiedades propiedad, char valor[]) {
+    Contacto **contactos_filtrados = (Contacto**)malloc(sizeof(Contacto*) * (*tam));
     int indice_filtrados = 0;
 
-    for (size_t i = 0; i < tam; i++) {
+    for (size_t i = 0; i < (*tam); i++) {
         if (contacto_tiene_valor(contactos[i], propiedad, valor)) {
             contactos_filtrados[indice_filtrados] = contactos[i];
 
@@ -143,6 +143,8 @@ Contacto **contacto_filtrar_por_propiedad(size_t tam, Contacto *contactos[], Con
 
     contactos_filtrados = (Contacto**)realloc(contactos_filtrados, sizeof(Contacto*) * (indice_filtrados + 1));
     contactos_filtrados[indice_filtrados] = NULL;   // Marcar el final del arreglo
+
+    *tam = indice_filtrados;
 
     return contactos_filtrados;
 }

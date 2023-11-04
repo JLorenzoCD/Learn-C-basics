@@ -6,11 +6,13 @@ typedef enum OpcionBuscarContacto OpcionBuscarContacto;
 void buscar_contacto(void) {
     int op;
 
-    size_t len_contactos_filtrados = 0;
+    size_t len_contactos_filtrados;
     Contacto **contactos_filtrados = NULL;
     char *valor_buscar = NULL;
 
     do {
+        len_contactos_filtrados = GLOBAL_LEN_CONTACTOS;
+
         system("clear");
 
         op = -1;
@@ -33,33 +35,31 @@ void buscar_contacto(void) {
 
             valor_buscar = obtener_texto("Ingrese el nombre del contacto a buscar: ");
 
-            contactos_filtrados = contacto_filtrar_por_propiedad(GLOBAL_LEN_CONTACTOS, GLOBAL_CONTACTOS, CONTACTO_NOMBRE, valor_buscar);break;
+            contactos_filtrados = contacto_filtrar_por_propiedad(&len_contactos_filtrados, GLOBAL_CONTACTOS, CONTACTO_NOMBRE, valor_buscar);break;
         case BUSCAR_APELLIDO:
             puts("BUSCAR POR APELLIDO");
 
             valor_buscar = obtener_texto("Ingrese el apellido del contacto a buscar: ");
 
-            contactos_filtrados = contacto_filtrar_por_propiedad(GLOBAL_LEN_CONTACTOS, GLOBAL_CONTACTOS, CONTACTO_APELLIDO, valor_buscar);break;
+            contactos_filtrados = contacto_filtrar_por_propiedad(&len_contactos_filtrados, GLOBAL_CONTACTOS, CONTACTO_APELLIDO, valor_buscar);break;
         case BUSCAR_TELEFONO:
             puts("BUSCAR POR TELEFONO");
 
             valor_buscar = obtener_texto("Ingrese el telefono del contacto a buscar: ");
 
-            contactos_filtrados = contacto_filtrar_por_propiedad(GLOBAL_LEN_CONTACTOS, GLOBAL_CONTACTOS, CONTACTO_TELEFONO, valor_buscar);break;
+            contactos_filtrados = contacto_filtrar_por_propiedad(&len_contactos_filtrados, GLOBAL_CONTACTOS, CONTACTO_TELEFONO, valor_buscar);break;
         case BUSCAR_EMAIL:
             puts("BUSCAR POR EMAIL");
 
             valor_buscar = obtener_texto("Ingrese el email del contacto a buscar: ");
 
-            contactos_filtrados = contacto_filtrar_por_propiedad(GLOBAL_LEN_CONTACTOS, GLOBAL_CONTACTOS, CONTACTO_EMAIL, valor_buscar);break;
+            contactos_filtrados = contacto_filtrar_por_propiedad(&len_contactos_filtrados, GLOBAL_CONTACTOS, CONTACTO_EMAIL, valor_buscar);break;
         }
 
         if (op != IR_MENU) {
-            len_contactos_filtrados = contacto_array_len(contactos_filtrados);
             contacto_imprimir_array(len_contactos_filtrados, contactos_filtrados);
 
             // Reset
-            len_contactos_filtrados = 0;
             free(contactos_filtrados);
             contactos_filtrados = NULL;
 

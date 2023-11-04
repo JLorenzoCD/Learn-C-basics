@@ -24,7 +24,7 @@ void contacto_imprimir_array(size_t tam, Contacto *contactos[]);
 
 size_t contacto_array_len(Contacto *contactos[]);
 bool contacto_tiene_valor(Contacto *contacto, Contacto_Propiedades propiedad, char valor[]);
-Contacto **contacto_filtrar_por_propiedad(size_t tam, Contacto *contactos[], Contacto_Propiedades propiedad, char valor[]);
+Contacto **contacto_filtrar_por_propiedad(size_t *tam, Contacto *contactos[], Contacto_Propiedades propiedad, char valor[]);
 bool contacto_array_eliminar(size_t *tam, Contacto *contactos[], Contacto_Propiedades propiedad, char valor[]);
 
 // Temas de prueba
