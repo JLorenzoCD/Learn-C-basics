@@ -6,12 +6,12 @@ typedef enum OpcionNuevoContacto OpcionNuevoContacto;
 void nuevo_contacto(void) {
     int op = -1;
 
-    char *nombre;
-    char *apellido;
-    char *telefono;
-    char *email;
+    char *nombre = NULL;
+    char *apellido = NULL;
+    char *telefono = NULL;
+    char *email = NULL;
 
-    Contacto *contacto_nuevo;
+    Contacto *contacto_nuevo = NULL;
 
     do {
         contacto_nuevo = NULL;

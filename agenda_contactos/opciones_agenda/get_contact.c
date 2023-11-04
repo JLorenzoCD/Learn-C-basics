@@ -31,33 +31,31 @@ void buscar_contacto(void) {
 
         switch (op) {
         case BUSCAR_NOMBRE:
-            puts("BUSCAR POR NOMBRE");
-
-            valor_buscar = obtener_texto("Ingrese el nombre del contacto a buscar: ");
+            valor_buscar = obtener_texto("\nIngrese el nombre del contacto a buscar: ");
 
             contactos_filtrados = contacto_filtrar_por_propiedad(&len_contactos_filtrados, GLOBAL_CONTACTOS, CONTACTO_NOMBRE, valor_buscar);break;
         case BUSCAR_APELLIDO:
-            puts("BUSCAR POR APELLIDO");
-
-            valor_buscar = obtener_texto("Ingrese el apellido del contacto a buscar: ");
+            valor_buscar = obtener_texto("\nIngrese el apellido del contacto a buscar: ");
 
             contactos_filtrados = contacto_filtrar_por_propiedad(&len_contactos_filtrados, GLOBAL_CONTACTOS, CONTACTO_APELLIDO, valor_buscar);break;
         case BUSCAR_TELEFONO:
-            puts("BUSCAR POR TELEFONO");
-
-            valor_buscar = obtener_texto("Ingrese el telefono del contacto a buscar: ");
+            valor_buscar = obtener_texto("\nIngrese el telefono del contacto a buscar: ");
 
             contactos_filtrados = contacto_filtrar_por_propiedad(&len_contactos_filtrados, GLOBAL_CONTACTOS, CONTACTO_TELEFONO, valor_buscar);break;
         case BUSCAR_EMAIL:
-            puts("BUSCAR POR EMAIL");
-
-            valor_buscar = obtener_texto("Ingrese el email del contacto a buscar: ");
+            valor_buscar = obtener_texto("\nIngrese el email del contacto a buscar: ");
 
             contactos_filtrados = contacto_filtrar_por_propiedad(&len_contactos_filtrados, GLOBAL_CONTACTOS, CONTACTO_EMAIL, valor_buscar);break;
         }
 
         if (op != IR_MENU) {
-            contacto_imprimir_array(len_contactos_filtrados, contactos_filtrados);
+            if (len_contactos_filtrados == 0) {
+                puts("\n\nNo se ha encontrado nigun contacto con dicho valor.\n");
+            }
+            else {
+                puts("\n\nSe a encontrado los siguientes contactos:");
+                contacto_imprimir_array(len_contactos_filtrados, contactos_filtrados);
+            }
 
             // Reset
             free(contactos_filtrados);
