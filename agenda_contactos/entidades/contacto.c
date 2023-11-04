@@ -71,10 +71,13 @@ void contacto_destruir(Contacto *contacto) {
     contacto = NULL;
 }
 
-void contacto_destruir_array(size_t len, Contacto **contactos) {
-    for (size_t i = 0; i < len; i++) {
+void contacto_destruir_array(size_t *len, Contacto **contactos) {
+    for (size_t i = 0; i < (*len); i++) {
         contacto_destruir(contactos[i]);
     }
+
+    free(contactos);
+    contactos = NULL;
 }
 
 void contacto_imprimir(Contacto *contacto) {

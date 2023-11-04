@@ -44,9 +44,7 @@ int main(void) {
 
     } while (op != CLOSE);
 
-    contacto_destruir_array(GLOBAL_LEN_CONTACTOS, GLOBAL_CONTACTOS);
-    free(GLOBAL_CONTACTOS);
-    GLOBAL_CONTACTOS = NULL;
+    contacto_destruir_array(&GLOBAL_LEN_CONTACTOS, GLOBAL_CONTACTOS);
 
     return 0;
 }

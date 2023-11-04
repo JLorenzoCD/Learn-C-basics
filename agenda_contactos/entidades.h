@@ -17,7 +17,7 @@ typedef enum Contacto_Propiedades Contacto_Propiedades;
 Contacto *contacto_crear(char nombre[], char apellido[], char telefono[], char email[]);
 
 void contacto_destruir(Contacto *contacto);
-void contacto_destruir_array(size_t len, Contacto **contactos);
+void contacto_destruir_array(size_t *len, Contacto **contactos);
 
 void contacto_imprimir(Contacto *contacto);
 void contacto_imprimir_array(size_t tam, Contacto *contactos[]);
