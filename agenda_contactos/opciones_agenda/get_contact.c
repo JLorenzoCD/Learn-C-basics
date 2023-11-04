@@ -8,6 +8,7 @@ void buscar_contacto(void) {
 
     unsigned int len_contactos_filtrados = 0;
     Contacto **contactos_filtrados = NULL;
+    char *valor_buscar;
 
     do {
         system("clear");
@@ -24,7 +25,6 @@ void buscar_contacto(void) {
 
         op = obtener_opcion_valida(IR_MENU, BUSCAR_EMAIL);
 
-        char *valor_buscar;
         // system("clear");
 
         switch (op) {
@@ -58,10 +58,13 @@ void buscar_contacto(void) {
             len_contactos_filtrados = contacto_array_len(contactos_filtrados);
             contacto_imprimir_array(len_contactos_filtrados, contactos_filtrados);
 
+            // Reset
+            len_contactos_filtrados = 0;
             free(contactos_filtrados);
             contactos_filtrados = NULL;
 
-            len_contactos_filtrados = 0;
+            free(valor_buscar);
+            valor_buscar = NULL;
 
             pausar_terminal();
         }
