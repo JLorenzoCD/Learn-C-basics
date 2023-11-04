@@ -162,11 +162,11 @@ size_t contacto_array_len(Contacto *contactos[]) {
     return i;
 }
 
-bool contacto_array_eliminar(size_t *tam, Contacto *contactos[], Contacto_Propiedades propiedad, char valor[]) {
+bool contacto_array_eliminar(size_t *tam, Contacto ***contactos, Contacto_Propiedades propiedad, char valor[]) {
     size_t index_contacto_to_eliminar = SIZE_MAX;
 
     for (size_t i = 0; i < (*tam) && index_contacto_to_eliminar == SIZE_MAX; i++) {
-        if (contacto_tiene_valor(contactos[i], propiedad, valor)) {
+        if (contacto_tiene_valor((*contactos)[i], propiedad, valor)) {
             index_contacto_to_eliminar = i;
         }
     }
@@ -175,28 +175,45 @@ bool contacto_array_eliminar(size_t *tam, Contacto *contactos[], Contacto_Propie
         return false;
     }
 
-    contacto_destruir(contactos[index_contacto_to_eliminar]);
+    contacto_destruir((*contactos)[index_contacto_to_eliminar]);
 
-    (*tam)--;
+    *tam = *tam - 1;
     for (size_t i = index_contacto_to_eliminar; i < *tam; i++) {
-        contactos[i] = contactos[i + 1];
+        (*contactos)[i] = (*contactos)[i + 1];
     }
 
     // Reajustar la memoria asignada para el array de contactos
-    Contacto **temp = (Contacto**)realloc(contactos, ((*tam) + 1) * sizeof(Contacto*));
+    Contacto **temp = (Contacto**)realloc((*contactos), ((*tam) + 1) * sizeof(Contacto*));
+
+    if (temp == NULL) {
+        printf("Error al realocar memoria.\n");
+        exit(-1);
+        *tam = *tam + 1;
+    }
+
+    (*contactos) = temp;
+
+    // Marcando el final del array
+    (*contactos)[*tam] = NULL;
+
+    return true;
+}
+
+void contacto_array_agregar(size_t *tam, Contacto ***contactos, Contacto *nuevo_contacto) {
+    // Se utiliza ***contactos en lugar de **contactos o *contactos[] para modificar el espacio de memoria de la variable de fuera
+    *tam = *tam + 1;
+    Contacto **temp = (Contacto**)realloc(*contactos, ((*tam) + 1) * sizeof(Contacto*));
 
     if (temp == NULL) {
         printf("Error al realocar memoria.\n");
         exit(-1);
     }
-    else {
-        contactos = temp;
 
-        // Marcando el final del array
-        contactos[*tam] = NULL;
-    }
+    (*contactos) = temp;
 
-    return true;
+    (*contactos)[((*tam) - 1)] = nuevo_contacto;
+
+    (*contactos)[*tam] = NULL; // Marcando el final del array
 }
 
 // Temas de prueba

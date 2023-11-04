@@ -51,12 +51,19 @@ void nuevo_contacto(void) {
 
         switch (op) {
         case ALMACENAR:
-            puts("SE ALMACENO EL CONTACTO EN LA BASE DE DATOS");break;
+            contacto_array_agregar(&GLOBAL_LEN_CONTACTOS, &GLOBAL_CONTACTOS, contacto_nuevo);
+            puts("\nSE ALMACENO EL CONTACTO EN LA BASE DE DATOS");break;
+
         case REACER:
-            puts("REACIENDO EL CONTACTO");break;
+            contacto_destruir(contacto_nuevo);
+            puts("\nREACIENDO EL CONTACTO");break;
+
         case ALMACENAR_Y_CREAR:
-            puts("SE ALMACENO Y SE ESTA CREANDO NUEVO CONTACTO");break;
+            contacto_array_agregar(&GLOBAL_LEN_CONTACTOS, &GLOBAL_CONTACTOS, contacto_nuevo);
+            puts("\nSE ALMACENO Y SE SELECCIONO CREAR OTRO CONTACTO");break;
         }
+
+        contacto_nuevo = NULL;
 
         if (op != IR_MENU) {
             pausar_terminal();
