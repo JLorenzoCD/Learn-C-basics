@@ -35,7 +35,7 @@ int main(void) {
         case STORE:
             nuevo_contacto();break;
         case UPDATE:
-            puts("4) Editar contacto.");break;
+            modificar_contacto();break;
         case DELETE:
             eliminar_contacto();break;
         case CLOSE:

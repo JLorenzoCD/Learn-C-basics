@@ -23,6 +23,7 @@ void contacto_imprimir(Contacto *contacto);
 void contacto_imprimir_array(size_t tam, Contacto *contactos[]);
 
 size_t contacto_array_len(Contacto *contactos[]);
+void contacto_modificar_valores(Contacto *contacto, char **nombre, char **apellido, char **telefono, char **email);
 bool contacto_tiene_valor(Contacto *contacto, Contacto_Propiedades propiedad, char valor[]);
 Contacto **contacto_filtrar_por_propiedad(size_t *tam, Contacto *contactos[], Contacto_Propiedades propiedad, char valor[]);
 bool contacto_array_eliminar(size_t *tam, Contacto ***contactos, Contacto_Propiedades propiedad, char valor[]);

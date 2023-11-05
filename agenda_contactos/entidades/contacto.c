@@ -89,6 +89,7 @@ void contacto_imprimir(Contacto *contacto) {
 
 void contacto_imprimir_array(size_t tam, Contacto *contactos[]) {
     for (size_t i = 0; i < tam; i++) {
+        printf("\nContacto N°%lu\n", i + 1);
         puts("-------------------------------");
         contacto_imprimir(contactos[i]);
     }
@@ -102,6 +103,18 @@ Contacto *contacto_clonar(Contacto *contacto_a_clonar) {
         contacto_a_clonar->telefono,
         contacto_a_clonar->email
     );
+}
+
+void contacto_modificar_valores(Contacto *contacto, char **nombre, char **apellido, char **telefono, char **email) {
+    free(contacto->nombre);
+    free(contacto->apellido);
+    free(contacto->telefono);
+    free(contacto->email);
+
+    contacto->nombre = *nombre;
+    contacto->apellido = *apellido;
+    contacto->telefono = *telefono;
+    contacto->email = *email;
 }
 
 bool contacto_tiene_valor(Contacto *contacto, Contacto_Propiedades propiedad, char valor[]) {

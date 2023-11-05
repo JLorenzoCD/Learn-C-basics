@@ -18,4 +18,5 @@ typedef enum OpcionesAgenda OpcionesAgenda;
 void mostrar_todos_contactos(void);
 void buscar_contacto(void);
 void nuevo_contacto(void);
+void modificar_contacto(void);
 void eliminar_contacto(void);
