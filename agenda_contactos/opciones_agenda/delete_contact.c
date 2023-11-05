@@ -30,25 +30,25 @@ void eliminar_contacto(void) {
         case POR_NOMBRE:
             puts("ELIMINAR POR NOMBRE");
 
-            valor_eliminar = obtener_texto("Ingrese el nombre del contacto a buscar: ");
+            valor_eliminar = obtener_texto("Ingrese el nombre del contacto a eliminar: ");
             res = contacto_array_eliminar(&GLOBAL_LEN_CONTACTOS, &GLOBAL_CONTACTOS, CONTACTO_NOMBRE, valor_eliminar);break;
 
         case POR_APELLIDO:
             puts("ELIMINAR POR APELLIDO");
 
-            valor_eliminar = obtener_texto("Ingrese el nombre del contacto a buscar: ");
+            valor_eliminar = obtener_texto("Ingrese el nombre del contacto a eliminar: ");
             res = contacto_array_eliminar(&GLOBAL_LEN_CONTACTOS, &GLOBAL_CONTACTOS, CONTACTO_APELLIDO, valor_eliminar);break;
 
         case POR_TELEFONO:
             puts("ELIMINAR POR TELEFONO");
 
-            valor_eliminar = obtener_texto("Ingrese el nombre del contacto a buscar: ");
+            valor_eliminar = obtener_texto("Ingrese el nombre del contacto a eliminar: ");
             res = contacto_array_eliminar(&GLOBAL_LEN_CONTACTOS, &GLOBAL_CONTACTOS, CONTACTO_TELEFONO, valor_eliminar);break;
 
         case POR_EMAIL:
             puts("ELIMINAR POR EMAIL");
 
-            valor_eliminar = obtener_texto("Ingrese el nombre del contacto a buscar: ");
+            valor_eliminar = obtener_texto("Ingrese el nombre del contacto a eliminar: ");
             res = contacto_array_eliminar(&GLOBAL_LEN_CONTACTOS, &GLOBAL_CONTACTOS, CONTACTO_EMAIL, valor_eliminar);break;
 
         }
