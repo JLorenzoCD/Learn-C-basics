@@ -13,21 +13,10 @@ void buscar_contacto(void) {
     do {
         len_contactos_filtrados = GLOBAL_LEN_CONTACTOS;
 
-        system("clear");
-
         op = -1;
-        puts("########### Busqueda de contacto ###########");
-        puts("Por cual de las siguientes propiedades deseas buscar a tu contacto?");
-        puts("1) Nombre.");
-        puts("2) Apellido.");
-        puts("3) Numero de telefono.");
-        puts("4) Email.");
-
-        puts("0) Ir al menu.");
+        imprimir_cabecera_buscar_contacto();
 
         op = obtener_opcion_valida(IR_MENU, BUSCAR_EMAIL);
-
-        // system("clear");
 
         switch (op) {
         case BUSCAR_NOMBRE:

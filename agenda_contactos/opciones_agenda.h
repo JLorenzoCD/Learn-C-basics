@@ -9,6 +9,7 @@
 # include "entidades.h"
 # include "utilidades.h"
 # include "constantes.h"
+# include "imprimir.h"
 
 enum OpcionesAgenda { CLOSE, GET_ALL, GET, STORE, UPDATE, DELETE };
 

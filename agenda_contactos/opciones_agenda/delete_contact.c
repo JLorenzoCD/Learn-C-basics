@@ -11,18 +11,9 @@ void eliminar_contacto(void) {
 
     do {
         res = false;
-
-        system("clear");
-
         op = -1;
-        puts("########### Eliminar contacto ###########");
-        puts("Por cual de las siguientes propiedades deseas eliminar a tu contacto?");
-        puts("1) Nombre.");
-        puts("2) Apellido.");
-        puts("3) Numero de telefono.");
-        puts("4) Email.");
 
-        puts("0) Ir al menu.");
+        imprimir_cabecera_eliminar_contacto();
 
         op = obtener_opcion_valida(IR_MENU, POR_EMAIL);
 

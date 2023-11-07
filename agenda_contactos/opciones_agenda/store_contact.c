@@ -15,10 +15,7 @@ void nuevo_contacto(void) {
 
     do {
         contacto_nuevo = NULL;
-        system("clear");
-
-        puts("########### Añadiendo nuevo contacto ###########");
-        puts("Ingrese los datos del contacto: ");
+        imprimir_cabecera_alamcenar_contacto();
 
         nombre = obtener_texto("- Nombre: ");
         apellido = obtener_texto("- Apellido: ");
@@ -40,12 +37,7 @@ void nuevo_contacto(void) {
         puts("El nuvo contacto es: ");
         contacto_imprimir(contacto_nuevo);
 
-
-        puts("\nDesea: ");
-        puts("1) Almacenar.");
-        puts("2) Reacer.");
-        puts("3) Almacenar y crear nuevo contacto.");
-        puts("0) Ir al menu.");
+        imprimir_opciones_alamcenar_contacto();
 
         op = obtener_opcion_valida(IR_MENU, ALMACENAR_Y_CREAR);
 

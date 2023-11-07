@@ -1,9 +1,9 @@
 // Modulos estandar
 # include <stdio.h>
-# include <stdbool.h>
 
 // Mis modulos
 # include "opciones_agenda.h"
+# include "imprimir.h"
 
 int main(void) {
     int op;
@@ -15,15 +15,7 @@ int main(void) {
 
     do {
         op = -1;
-        // system("clear");
-        puts("        AGENDA DE CONTACTO");
-        puts("Seleccione alguna de las siguientes opciones:");
-        puts("1) Mostrar todos los contactos agendados.");
-        puts("2) Buscar contacto.");
-        puts("3) Agregar un nuevo contacto.");
-        puts("4) Editar contacto.");
-        puts("5) Eliminar contacto.");
-        puts("0) Salir de la agenda.");
+        imprimir_opciones_agenda();
 
         op = obtener_opcion_valida(CLOSE, DELETE);
 
@@ -39,7 +31,7 @@ int main(void) {
         case DELETE:
             eliminar_contacto();break;
         case CLOSE:
-            puts("\nCerrando la agenda de contactos.");
+            imprimir_msg_salir_agenda();
         }
 
     } while (op != CLOSE);
