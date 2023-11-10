@@ -7,8 +7,8 @@ struct Contacto {
     char *email;
 };
 
-Contacto *contacto_crear(char nombre[], char apellido[], char telefono[], char email[]) {
-    Contacto *nuevo_contacto = (Contacto*)malloc(sizeof(Contacto));
+PContacto contacto_crear(char nombre[], char apellido[], char telefono[], char email[]) {
+    PContacto nuevo_contacto = (PContacto)malloc(sizeof(Contacto));
 
     size_t len_string = strlen(nombre) + 1;
     nuevo_contacto->nombre = (char*)malloc(len_string * sizeof(char));
@@ -61,7 +61,7 @@ Contacto *contacto_crear(char nombre[], char apellido[], char telefono[], char e
     return nuevo_contacto;
 }
 
-void contacto_destruir(Contacto *contacto) {
+void contacto_destruir(PContacto contacto) {
     free(contacto->nombre);
     free(contacto->apellido);
     free(contacto->telefono);
@@ -71,7 +71,7 @@ void contacto_destruir(Contacto *contacto) {
     contacto = NULL;
 }
 
-void contacto_destruir_array(size_t *len, Contacto **contactos) {
+void contacto_destruir_array(size_t *len, ListaContactos contactos) {
     for (size_t i = 0; i < (*len); i++) {
         contacto_destruir(contactos[i]);
     }
@@ -80,14 +80,14 @@ void contacto_destruir_array(size_t *len, Contacto **contactos) {
     contactos = NULL;
 }
 
-void contacto_imprimir(Contacto *contacto) {
+void contacto_imprimir(PContacto contacto) {
     printf("Nombre: %s\n", contacto->nombre);
     printf("Apellido: %s\n", contacto->apellido);
     printf("Tel.: %s\n", contacto->telefono);
     printf("Email: %s\n", contacto->email);
 }
 
-void contacto_imprimir_array(size_t tam, Contacto *contactos[]) {
+void contacto_imprimir_array(size_t tam, ListaContactos contactos) {
     for (size_t i = 0; i < tam; i++) {
         printf("\nContacto N°%lu\n", i + 1);
         puts("-------------------------------");
@@ -96,7 +96,7 @@ void contacto_imprimir_array(size_t tam, Contacto *contactos[]) {
     puts("-------------------------------");
 }
 
-Contacto *contacto_clonar(Contacto *contacto_a_clonar) {
+PContacto contacto_clonar(PContacto contacto_a_clonar) {
     return contacto_crear(
         contacto_a_clonar->nombre,
         contacto_a_clonar->apellido,
@@ -105,7 +105,7 @@ Contacto *contacto_clonar(Contacto *contacto_a_clonar) {
     );
 }
 
-void contacto_modificar_valores(Contacto *contacto, char **nombre, char **apellido, char **telefono, char **email) {
+void contacto_modificar_valores(PContacto contacto, char **nombre, char **apellido, char **telefono, char **email) {
     free(contacto->nombre);
     free(contacto->apellido);
     free(contacto->telefono);
@@ -117,7 +117,7 @@ void contacto_modificar_valores(Contacto *contacto, char **nombre, char **apelli
     contacto->email = *email;
 }
 
-bool contacto_tiene_valor(Contacto *contacto, Contacto_Propiedades propiedad, char valor[]) {
+bool contacto_tiene_valor(PContacto contacto, Contacto_Propiedades propiedad, char valor[]) {
     bool tiene_valor = false;
 
     switch (propiedad) {
@@ -145,8 +145,8 @@ bool contacto_tiene_valor(Contacto *contacto, Contacto_Propiedades propiedad, ch
     return tiene_valor;
 }
 
-Contacto **contacto_filtrar_por_propiedad(size_t *tam, Contacto *contactos[], Contacto_Propiedades propiedad, char valor[]) {
-    Contacto **contactos_filtrados = (Contacto**)malloc(sizeof(Contacto*) * (*tam));
+ListaContactos contacto_filtrar_por_propiedad(size_t *tam, ListaContactos contactos, Contacto_Propiedades propiedad, char valor[]) {
+    ListaContactos contactos_filtrados = (ListaContactos)malloc(sizeof(PContacto) * (*tam));
     int indice_filtrados = 0;
 
     for (size_t i = 0; i < (*tam); i++) {
@@ -157,7 +157,7 @@ Contacto **contacto_filtrar_por_propiedad(size_t *tam, Contacto *contactos[], Co
         }
     }
 
-    contactos_filtrados = (Contacto**)realloc(contactos_filtrados, sizeof(Contacto*) * (indice_filtrados + 1));
+    contactos_filtrados = (ListaContactos)realloc(contactos_filtrados, sizeof(PContacto) * (indice_filtrados + 1));
     contactos_filtrados[indice_filtrados] = NULL;   // Marcar el final del arreglo
 
     *tam = indice_filtrados;
@@ -165,7 +165,7 @@ Contacto **contacto_filtrar_por_propiedad(size_t *tam, Contacto *contactos[], Co
     return contactos_filtrados;
 }
 
-size_t contacto_array_len(Contacto *contactos[]) {
+size_t contacto_array_len(ListaContactos contactos) {
     size_t i = 0;
 
     while (contactos[i] != NULL) {
@@ -175,7 +175,7 @@ size_t contacto_array_len(Contacto *contactos[]) {
     return i;
 }
 
-bool contacto_array_eliminar(size_t *tam, Contacto ***contactos, Contacto_Propiedades propiedad, char valor[]) {
+bool contacto_array_eliminar(size_t *tam, ListaContactos *contactos, Contacto_Propiedades propiedad, char valor[]) {
     size_t index_contacto_to_eliminar = SIZE_MAX;
 
     for (size_t i = 0; i < (*tam) && index_contacto_to_eliminar == SIZE_MAX; i++) {
@@ -196,7 +196,7 @@ bool contacto_array_eliminar(size_t *tam, Contacto ***contactos, Contacto_Propie
     }
 
     // Reajustar la memoria asignada para el array de contactos
-    Contacto **temp = (Contacto**)realloc((*contactos), ((*tam) + 1) * sizeof(Contacto*));
+    ListaContactos temp = (ListaContactos)realloc((*contactos), ((*tam) + 1) * sizeof(PContacto));
 
     if (temp == NULL) {
         printf("Error al realocar memoria.\n");
@@ -212,10 +212,10 @@ bool contacto_array_eliminar(size_t *tam, Contacto ***contactos, Contacto_Propie
     return true;
 }
 
-void contacto_array_agregar(size_t *tam, Contacto ***contactos, Contacto *nuevo_contacto) {
+void contacto_array_agregar(size_t *tam, ListaContactos *contactos, PContacto nuevo_contacto) {
     // Se utiliza ***contactos en lugar de **contactos o *contactos[] para modificar el espacio de memoria de la variable de fuera
     *tam = *tam + 1;
-    Contacto **temp = (Contacto**)realloc(*contactos, ((*tam) + 1) * sizeof(Contacto*));
+    ListaContactos temp = (ListaContactos)realloc(*contactos, ((*tam) + 1) * sizeof(PContacto));
 
     if (temp == NULL) {
         printf("Error al realocar memoria.\n");
@@ -230,11 +230,11 @@ void contacto_array_agregar(size_t *tam, Contacto ***contactos, Contacto *nuevo_
 }
 
 // Temas de prueba
-Contacto **contacto_prueba_array(size_t contactos_a_generar) {
-    Contacto *contacto_prueba1 = contacto_crear("Lorenzo", "Canovas", "484866634515", "lorenzo.canovas@gmail.com");
-    Contacto *contacto_prueba2 = contacto_crear("Pepe", "Fereira", "4154126541", "pepe.fereira@gmail.com");
+ListaContactos contacto_prueba_array(size_t contactos_a_generar) {
+    PContacto contacto_prueba1 = contacto_crear("Lorenzo", "Canovas", "484866634515", "lorenzo.canovas@gmail.com");
+    PContacto contacto_prueba2 = contacto_crear("Pepe", "Fereira", "4154126541", "pepe.fereira@gmail.com");
 
-    Contacto **contactos = (Contacto**)malloc(sizeof(Contacto*) * (contactos_a_generar + 1));
+    ListaContactos contactos = (ListaContactos)malloc(sizeof(PContacto) * (contactos_a_generar + 1));
 
     if (contactos == NULL) {
         puts("Error al asignar memoria en 'contacto_prueba_array'");
