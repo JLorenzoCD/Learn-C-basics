@@ -1,48 +1,24 @@
-# include <stdio.h>
-# include <stdlib.h>
+# include "mis_estructuras.h"
 
-typedef struct Nodo {
-    struct Nodo *siguiente;
-    void *dato;
-}Nodo;
+// Prototipos de funciones privadas
+void pila_iniciar(PPila pila);
 
-typedef struct {
-    Nodo *ultimo;
-}Pila;
-
-void inicir_pila(Pila *pila);
-void agregar(Pila *pila, void *dato);
-void* quitar(Pila *pila);
-
-int main(void) {
-    Pila pila_libro;
-    inicir_pila(&pila_libro);
-
-    char libro_uno[] = "1° Libro apilado";
-    char libro_dos[] = "2° Libro apilado";
-    char libro_tres[] = "3° Libro apilado";
-
-    agregar(&pila_libro, libro_uno);
-    agregar(&pila_libro, libro_dos);
-    agregar(&pila_libro, libro_tres);
-
-    char *dato_pila = (char*)quitar(&pila_libro);
-    while (dato_pila != NULL) {
-        printf("%s\n", dato_pila);
-
-        dato_pila = (char*)quitar(&pila_libro);
-    }
-
-    return 0;
-}
-
-void inicir_pila(Pila *pila) {
+// Funciones privadas
+void pila_iniciar(PPila pila) {
     pila->ultimo = NULL;
 }
 
+// Funciones publicas
+Pila pila_crear(void) {
+    Pila nueva_pila;
 
-void agregar(Pila *pila, void *dato) {
-    Nodo *elem = (Nodo*)malloc(sizeof(Nodo));
+    pila_iniciar(&nueva_pila);
+
+    return nueva_pila;
+}
+
+void pila_agregar(PPila pila, T dato) {
+    PNodo elem = (PNodo)malloc(sizeof(Nodo));
 
     if (elem == NULL) {
         printf("Error al asignar espacio en memoria");
@@ -61,12 +37,12 @@ void agregar(Pila *pila, void *dato) {
     }
 }
 
-void* quitar(Pila *pila) {
+void* pila_quitar(PPila pila) {
     if (pila->ultimo == NULL) return NULL;
 
     Nodo *temp = pila->ultimo;
 
-    void *dato = temp->dato;
+    T dato = temp->dato;
     pila->ultimo = temp->siguiente;
 
     free(temp);

@@ -6,11 +6,14 @@ void cabecera_prueba_estructura_datos(char nombre_estructura[]);
 
 void prueba_cola(void);
 void prueba_lista_enlazada(void);
+void prueba_pila(void);
 
 int main(void) {
     prueba_cola();
     puts("\n");
     prueba_lista_enlazada();
+    puts("\n");
+    prueba_pila();
 
     return 0;
 }
@@ -65,5 +68,26 @@ void prueba_lista_enlazada(void) {
     while (i != NULL) {
         printf("%s\n", (char*)i->dato);
         i = i->siguiente;
+    }
+}
+
+void prueba_pila(void) {
+    cabecera_prueba_estructura_datos("Pila");
+
+    Pila pila_libro = pila_crear();
+
+    char libro_uno[] = "1° Libro apilado";
+    char libro_dos[] = "2° Libro apilado";
+    char libro_tres[] = "3° Libro apilado";
+
+    pila_agregar(&pila_libro, libro_uno);
+    pila_agregar(&pila_libro, libro_dos);
+    pila_agregar(&pila_libro, libro_tres);
+
+    char *dato_pila = (char*)pila_quitar(&pila_libro);
+    while (dato_pila != NULL) {
+        printf("%s\n", dato_pila);
+
+        dato_pila = (char*)pila_quitar(&pila_libro);
     }
 }
