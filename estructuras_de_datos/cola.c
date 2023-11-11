@@ -17,7 +17,7 @@ Cola cola_crear(void) {
     return nueva_cola;
 }
 
-void agregar(PCola cola, T dato) {
+void cola_agregar(PCola cola, T dato) {
     PNodo elem = (PNodo)malloc(sizeof(Nodo));
 
     if (elem == NULL) {
@@ -38,7 +38,7 @@ void agregar(PCola cola, T dato) {
     }
 }
 
-T quitar(PCola cola) {
+T cola_quitar(PCola cola) {
     if (cola->primero == NULL) return NULL;
 
     PNodo temp = cola->primero;

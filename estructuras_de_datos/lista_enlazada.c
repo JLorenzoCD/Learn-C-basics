@@ -1,53 +1,23 @@
-# include <stdio.h>
-# include <stdlib.h>
+# include "mis_estructuras.h"
 
-typedef struct Nodo {
-    struct Nodo *siguiente;
-    void *dato;
-}Nodo;
+// Prototipos de funciones privadas
+void lista_enlazada_iniciar(PListaEnlazada lista);
 
-typedef struct {
-    Nodo *primero;
-    Nodo *ultimo;
-}ListaEnlazada;
-
-void inicir_lista_enlazada(ListaEnlazada *lista);
-void agregar(ListaEnlazada *lista, void *dato);
-
-int main(void) {
-    ListaEnlazada lista_prueba;
-    inicir_lista_enlazada(&lista_prueba);
-
-    char elemento_uno[] = "1° Elemnto de la lista";
-    char elemento_dos[] = "2° Elemnto de la lista";
-    char elemento_tres[] = "3° Elemnto de la lista";
-
-    agregar(&lista_prueba, elemento_uno);
-    agregar(&lista_prueba, elemento_dos);
-    agregar(&lista_prueba, elemento_tres);
-
-    Nodo *i = lista_prueba.primero;
-    while (i != NULL) {
-        printf("%s\n", (char*)i->dato);
-        i = i->siguiente;
-    }
-
-    printf("\nSegunda vuelta\n");
-    i = lista_prueba.primero;
-    while (i != NULL) {
-        printf("%s\n", (char*)i->dato);
-        i = i->siguiente;
-    }
-
-    return 0;
-}
-
-void inicir_lista_enlazada(ListaEnlazada *lista) {
+// Funciones privadas
+void lista_enlazada_iniciar(PListaEnlazada lista) {
     lista->primero = lista->ultimo = NULL;
 }
 
-void agregar(ListaEnlazada *lista, void *dato) {
-    Nodo *elem = (Nodo*)malloc(sizeof(Nodo));
+// Funciones publicas
+ListaEnlazada lista_enlazada_crear(void) {
+    ListaEnlazada lista;
+    lista_enlazada_iniciar(&lista);
+
+    return lista;
+}
+
+void lista_enlazada_agregar(PListaEnlazada lista, T dato) {
+    PNodo elem = (PNodo)malloc(sizeof(Nodo));
 
     if (elem == NULL) {
         printf("Error al asignar espacio en memoria");

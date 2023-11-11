@@ -21,7 +21,19 @@ struct Cola {
 typedef struct Cola Cola;
 typedef Cola *PCola;
 
+struct ListaEnlazada {
+    PNodo primero;
+    PNodo ultimo;
+};
+
+typedef struct ListaEnlazada ListaEnlazada;
+typedef ListaEnlazada *PListaEnlazada;
+
 // Cola
 Cola cola_crear(void);
-void agregar(PCola cola, T dato);
-T quitar(PCola cola);
+void cola_agregar(PCola cola, T dato);
+T cola_quitar(PCola cola);
+
+// Lista enlazada
+ListaEnlazada lista_enlazada_crear(void);
+void lista_enlazada_agregar(PListaEnlazada lista, T dato);
