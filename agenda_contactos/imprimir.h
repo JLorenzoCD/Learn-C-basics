@@ -3,6 +3,8 @@
 # include <stdio.h>
 # include <stdlib.h>
 
+# include "utilidades.h"
+
 void imprimir_opciones_agenda(void);
 void imprimir_msg_salir_agenda(void);
 void imprimir_cabecera_mostrar_todos_contactos(void);

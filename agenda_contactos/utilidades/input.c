@@ -49,3 +49,8 @@ void pausar_terminal(void) {
     puts("Presiona ENTER para continuar.....");
     getchar();
 }
+
+// Fn pensada para comentar el clear y ver advertencias en la terminal.
+void limpiar_terminal(void) {
+    system("clear");
+}

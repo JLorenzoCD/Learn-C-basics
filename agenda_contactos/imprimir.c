@@ -1,7 +1,7 @@
 # include "imprimir.h"
 
 void imprimir_opciones_agenda(void) {
-    system("clear");
+    limpiar_terminal();
 
     puts("        AGENDA DE CONTACTO");
     puts("Seleccione alguna de las siguientes opciones:");
@@ -19,14 +19,14 @@ void imprimir_msg_salir_agenda(void) {
 }
 
 void imprimir_cabecera_mostrar_todos_contactos(void) {
-    system("clear");
+    limpiar_terminal();
 
     puts("########### Contactos ###########");
     puts("Estos son todos tus contactos:");
 }
 
 void imprimir_cabecera_buscar_contacto(void) {
-    system("clear");
+    limpiar_terminal();
 
     puts("########### Busqueda de contacto ###########");
     puts("Por cual de las siguientes propiedades deseas buscar a tu contacto?");
@@ -39,7 +39,7 @@ void imprimir_cabecera_buscar_contacto(void) {
 }
 
 void imprimir_cabecera_alamcenar_contacto(void) {
-    system("clear");
+    limpiar_terminal();
 
     puts("########### Añadiendo nuevo contacto ###########");
     puts("Ingrese los datos del contacto: ");
@@ -55,7 +55,7 @@ void imprimir_opciones_alamcenar_contacto(void) {
 }
 
 void imprimir_cabecera_modificar_contacto(void) {
-    system("clear");
+    limpiar_terminal();
 
     puts("########### Edicion de contacto ###########");
     puts("Por cual de las siguientes propiedades deseas buscar al contacto a modificar?");
@@ -68,7 +68,7 @@ void imprimir_cabecera_modificar_contacto(void) {
 }
 
 void imprimir_cabecera_eliminar_contacto(void) {
-    system("clear");
+    limpiar_terminal();
 
     puts("########### Eliminar contacto ###########");
     puts("Por cual de las siguientes propiedades deseas eliminar a tu contacto?");
