@@ -7,7 +7,7 @@ void buscar_contacto(void) {
     int op;
 
     size_t len_contactos_filtrados;
-    Contacto **contactos_filtrados = NULL;
+    ListaContactos contactos_filtrados = NULL;
     char *valor_buscar = NULL;
 
     do {

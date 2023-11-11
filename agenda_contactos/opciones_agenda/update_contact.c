@@ -7,7 +7,7 @@ void modificar_contacto(void) {
     int op, index_contacto;
 
     size_t len_contactos_filtrados;
-    Contacto **contactos_filtrados = NULL;
+    ListaContactos contactos_filtrados = NULL;
     char *valor_buscar = NULL;
 
     char *nombre = NULL;

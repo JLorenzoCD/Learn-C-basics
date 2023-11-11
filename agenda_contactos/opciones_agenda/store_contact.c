@@ -11,7 +11,7 @@ void nuevo_contacto(void) {
     char *telefono = NULL;
     char *email = NULL;
 
-    Contacto *contacto_nuevo = NULL;
+    PContacto contacto_nuevo = NULL;
 
     do {
         contacto_nuevo = NULL;
