@@ -1,4 +1,4 @@
-# include "mis_estructuras.h"
+# include "cola.h"
 
 // Prototipos de funciones privadas
 void iniciar_cola(PCola cola);

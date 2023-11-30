@@ -1,4 +1,4 @@
-# include "mis_estructuras.h"
+# include "lista_enlazada.h"
 
 // Prototipos de funciones privadas
 void lista_enlazada_iniciar(PListaEnlazada lista);

@@ -1,6 +1,8 @@
 # include <stdio.h>
 
-# include "mis_estructuras.h"
+# include "pila/pila.h"
+# include "cola/cola.h"
+# include "lista_enlazada/lista_enlazada.h"
 
 void cabecera_prueba_estructura_datos(char nombre_estructura[]);
 

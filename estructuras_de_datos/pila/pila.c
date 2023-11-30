@@ -1,4 +1,4 @@
-# include "mis_estructuras.h"
+# include "pila.h"
 
 // Prototipos de funciones privadas
 void pila_iniciar(PPila pila);
@@ -37,10 +37,10 @@ void pila_agregar(PPila pila, T dato) {
     }
 }
 
-void* pila_quitar(PPila pila) {
+T pila_quitar(PPila pila) {
     if (pila->ultimo == NULL) return NULL;
 
-    Nodo *temp = pila->ultimo;
+    PNodo temp = pila->ultimo;
 
     T dato = temp->dato;
     pila->ultimo = temp->siguiente;
