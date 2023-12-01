@@ -4,6 +4,7 @@
 
 struct Pila {
     PNodo ultimo;
+    size_t tam;
 };
 
 typedef struct Pila Pila;

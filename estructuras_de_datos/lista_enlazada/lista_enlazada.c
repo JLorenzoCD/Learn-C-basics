@@ -6,6 +6,7 @@ void lista_enlazada_iniciar(PListaEnlazada lista);
 // Funciones privadas
 void lista_enlazada_iniciar(PListaEnlazada lista) {
     lista->primero = lista->ultimo = NULL;
+    lista->tam = 0;
 }
 
 // Funciones publicas
@@ -35,4 +36,6 @@ void lista_enlazada_agregar(PListaEnlazada lista, T dato) {
         lista->ultimo->siguiente = elem;
         lista->ultimo = elem;
     }
+
+    lista->tam += 1;
 }

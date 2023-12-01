@@ -6,6 +6,7 @@ void pila_iniciar(PPila pila);
 // Funciones privadas
 void pila_iniciar(PPila pila) {
     pila->ultimo = NULL;
+    pila->tam = 0;
 }
 
 // Funciones publicas
@@ -35,6 +36,8 @@ void pila_agregar(PPila pila, T dato) {
         elem->siguiente = pila->ultimo;
         pila->ultimo = elem;
     }
+
+    pila->tam += 1;
 }
 
 T pila_quitar(PPila pila) {
@@ -46,6 +49,8 @@ T pila_quitar(PPila pila) {
     pila->ultimo = temp->siguiente;
 
     free(temp);
+
+    pila->tam -= 1;
 
     return dato;
 }

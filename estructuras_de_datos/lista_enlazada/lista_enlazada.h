@@ -5,6 +5,7 @@
 struct ListaEnlazada {
     PNodo primero;
     PNodo ultimo;
+    size_t tam;
 };
 
 typedef struct ListaEnlazada ListaEnlazada;

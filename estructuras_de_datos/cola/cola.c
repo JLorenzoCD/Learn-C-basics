@@ -6,6 +6,7 @@ void iniciar_cola(PCola cola);
 // Funciones privadas
 void iniciar_cola(PCola cola) {
     cola->primero = cola->ultimo = NULL;
+    cola->tam = 0;
 }
 
 // Funciones publicas
@@ -36,6 +37,8 @@ void cola_agregar(PCola cola, T dato) {
         cola->ultimo->siguiente = elem;
         cola->ultimo = elem;
     }
+
+    cola->tam += 1;
 }
 
 T cola_quitar(PCola cola) {
@@ -47,6 +50,8 @@ T cola_quitar(PCola cola) {
     cola->primero = temp->siguiente;
 
     free(temp);
+
+    cola->tam -= 1;
 
     return dato;
 }
