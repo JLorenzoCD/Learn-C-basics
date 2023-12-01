@@ -54,3 +54,12 @@ T pila_quitar(PPila pila) {
 
     return dato;
 }
+
+void pila_destruir(PPila pila) {
+    T dato_pila = (T)pila_quitar(pila);
+    while (dato_pila != NULL) {
+        dato_pila = (T)pila_quitar(pila);
+    }
+
+    pila->ultimo = NULL;
+}

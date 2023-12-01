@@ -13,3 +13,4 @@ typedef Pila *PPila;
 Pila pila_crear(void);
 void pila_agregar(PPila pila, T dato);
 T pila_quitar(PPila pila);
+void pila_destruir(PPila pila);

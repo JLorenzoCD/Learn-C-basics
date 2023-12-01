@@ -55,3 +55,12 @@ T cola_quitar(PCola cola) {
 
     return dato;
 }
+
+void cola_destruir(PCola cola) {
+    T dato_cola = (T)cola_quitar(cola);
+    while (dato_cola != NULL) {
+        dato_cola = (T)cola_quitar(cola);
+    }
+
+    cola->primero = cola->ultimo = NULL;
+}
