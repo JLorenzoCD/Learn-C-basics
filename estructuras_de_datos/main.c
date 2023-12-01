@@ -69,8 +69,9 @@ void prueba_lista_enlazada(void) {
         i = i->siguiente;
     }
 
+    lista_enlazada_quitar_primero(&lista_prueba);
     lista_enlazada_quitar_ultimo(&lista_prueba);
-    puts("\nSegunda vuelta, luego de quitar el ultimo dato");
+    puts("\nSegunda vuelta, luego de quitar el primer y ultimo dato");
     i = lista_prueba.primero;
     while (i != NULL) {
         printf("%s\n", (char*)i->dato);

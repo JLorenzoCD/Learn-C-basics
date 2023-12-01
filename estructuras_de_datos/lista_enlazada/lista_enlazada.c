@@ -67,6 +67,29 @@ T lista_enlazada_quitar_ultimo(PListaEnlazada lista) {
     return dato;
 }
 
+T lista_enlazada_quitar_primero(PListaEnlazada lista) {
+    if (0 == lista->tam) return NULL;
+
+    T dato = lista->primero->dato;
+
+    if (1 == lista->tam) {
+        free(lista->primero);
+        lista->primero = lista->ultimo = NULL;
+        lista->tam = 0;
+        return dato;
+    }
+
+    PNodo segundo = lista->primero->siguiente;
+
+    lista->primero->siguiente = NULL;
+    free(lista->primero);
+
+    lista->primero = segundo;
+    lista->tam -= 1;
+
+    return dato;
+}
+
 void lista_enlazada_destruir(PListaEnlazada lista) {
     for (size_t i = lista->tam; 0 < i; i--) {
         lista_enlazada_quitar_ultimo(lista);
