@@ -44,6 +44,8 @@ void prueba_cola(void) {
         printf("%s\n", dato_cola);
         dato_cola = (char*)cola_quitar(&cola_libros);
     }
+
+    cola_destruir(&cola_libros);
 }
 
 void prueba_lista_enlazada(void) {
@@ -59,18 +61,23 @@ void prueba_lista_enlazada(void) {
     lista_enlazada_agregar(&lista_prueba, elemento_dos);
     lista_enlazada_agregar(&lista_prueba, elemento_tres);
 
+    printf("Tamaño de la lista enlazada = %li\n", lista_prueba.tam);
+
     PNodo i = lista_prueba.primero;
     while (i != NULL) {
         printf("%s\n", (char*)i->dato);
         i = i->siguiente;
     }
 
-    puts("\nSegunda vuelta");
+    lista_enlazada_quitar_ultimo(&lista_prueba);
+    puts("\nSegunda vuelta, luego de quitar el ultimo dato");
     i = lista_prueba.primero;
     while (i != NULL) {
         printf("%s\n", (char*)i->dato);
         i = i->siguiente;
     }
+
+    lista_enlazada_destruir(&lista_prueba);
 }
 
 void prueba_pila(void) {
@@ -92,4 +99,6 @@ void prueba_pila(void) {
 
         dato_pila = (char*)pila_quitar(&pila_libro);
     }
+
+    pila_destruir(&pila_libro);
 }

@@ -39,3 +39,36 @@ void lista_enlazada_agregar(PListaEnlazada lista, T dato) {
 
     lista->tam += 1;
 }
+
+T lista_enlazada_quitar_ultimo(PListaEnlazada lista) {
+    if (0 == lista->tam) return NULL;
+
+    T dato = lista->ultimo->dato;
+
+    if (1 == lista->tam) {
+        free(lista->ultimo);
+        lista->primero = lista->ultimo = NULL;
+        lista->tam = 0;
+        return dato;
+    }
+
+    PNodo nuevo_ultimo = lista->primero;
+
+    while (nuevo_ultimo->siguiente != lista->ultimo) {
+        nuevo_ultimo = nuevo_ultimo->siguiente;
+    }
+
+    free(lista->ultimo);
+    nuevo_ultimo->siguiente = NULL;
+
+    lista->ultimo = nuevo_ultimo;
+    lista->tam -= 1;
+
+    return dato;
+}
+
+void lista_enlazada_destruir(PListaEnlazada lista) {
+    for (size_t i = lista->tam; 0 < i; i--) {
+        lista_enlazada_quitar_ultimo(lista);
+    }
+}
