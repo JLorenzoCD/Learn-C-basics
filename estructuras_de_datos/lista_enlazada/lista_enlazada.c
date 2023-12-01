@@ -92,6 +92,6 @@ T lista_enlazada_quitar_primero(PListaEnlazada lista) {
 
 void lista_enlazada_destruir(PListaEnlazada lista) {
     for (size_t i = lista->tam; 0 < i; i--) {
-        lista_enlazada_quitar_ultimo(lista);
+        lista_enlazada_quitar_primero(lista);
     }
 }
