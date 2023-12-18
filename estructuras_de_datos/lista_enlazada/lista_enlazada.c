@@ -90,6 +90,24 @@ T lista_enlazada_quitar_primero(PListaEnlazada lista) {
     return dato;
 }
 
+size_t lista_enlazada_index_primera_concidencia(PListaEnlazada lista, T a_comparar, bool (*callback)(T, T)) {
+    if (lista->primero == NULL) {
+        return NULL;
+    }
+    size_t primera_concidencia = 0;
+
+    PNodo i = lista->primero;
+    while (i != NULL) {
+
+        if (callback(a_comparar, i->dato)) {
+            return primera_concidencia;
+        }
+
+        i = i->siguiente;
+        primera_concidencia += 1;
+    }
+}
+
 void lista_enlazada_destruir(PListaEnlazada lista) {
     for (size_t i = lista->tam; 0 < i; i--) {
         lista_enlazada_quitar_primero(lista);

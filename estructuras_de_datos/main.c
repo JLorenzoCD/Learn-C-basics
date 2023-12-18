@@ -1,4 +1,5 @@
 # include <stdio.h>
+# include <string.h>
 
 # include "pila/pila.h"
 # include "cola/cola.h"
@@ -9,6 +10,11 @@ void cabecera_prueba_estructura_datos(char nombre_estructura[]);
 void prueba_cola(void);
 void prueba_lista_enlazada(void);
 void prueba_pila(void);
+
+// Funcion de prueba para utilizarla como callback para buscar un elemnto en la lista enlazada
+bool mismo_elemento_lista(T x, T y) {
+    return ((char*)x)[0] == ((char*)y)[0];
+}
 
 int main(void) {
     prueba_cola();
@@ -67,6 +73,11 @@ void prueba_lista_enlazada(void) {
     while (i != NULL) {
         printf("%s\n", (char*)i->dato);
         i = i->siguiente;
+    }
+
+    size_t index = lista_enlazada_index_primera_concidencia(&lista_prueba, "3° Elemnto de la lista", &mismo_elemento_lista);
+    if (index != NULL) {
+        printf("\n\nindice encontrado = %li\n\n", index);
     }
 
     lista_enlazada_quitar_primero(&lista_prueba);
