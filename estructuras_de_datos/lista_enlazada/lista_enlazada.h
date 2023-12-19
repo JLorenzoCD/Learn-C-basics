@@ -19,3 +19,4 @@ T lista_enlazada_quitar_ultimo(PListaEnlazada lista);
 T lista_enlazada_quitar_primero(PListaEnlazada lista);
 void lista_enlazada_destruir(PListaEnlazada lista);
 size_t lista_enlazada_index_primera_concidencia(PListaEnlazada lista, T a_comparar, bool (*callback)(T, T));
+T lista_enlazada_quitar_segun_index(PListaEnlazada lista, size_t indice_elemento_eliminar);

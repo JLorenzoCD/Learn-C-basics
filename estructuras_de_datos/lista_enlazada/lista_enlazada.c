@@ -108,6 +108,41 @@ size_t lista_enlazada_index_primera_concidencia(PListaEnlazada lista, T a_compar
     }
 }
 
+T lista_enlazada_quitar_segun_index(PListaEnlazada lista, size_t indice_elemento_eliminar) {
+    if (indice_elemento_eliminar == 0) {
+        return lista_enlazada_quitar_primero(lista);
+    }
+
+    if (indice_elemento_eliminar == lista->tam - 1) {
+        return lista_enlazada_quitar_ultimo(lista);
+    }
+
+    size_t indice_actual = 0;
+
+    T dato = NULL;
+    PNodo nuevo_siguiente = NULL;
+
+    PNodo i = lista->primero;
+    while (i != NULL) {
+        if (indice_actual + 1 == indice_elemento_eliminar) {
+            dato = i->siguiente->dato;
+            nuevo_siguiente = i->siguiente->siguiente;
+
+            free(i->siguiente);
+            i->siguiente = nuevo_siguiente;
+
+            lista->tam -= 1;
+
+            return dato;
+        }
+
+        i = i->siguiente;
+        indice_actual += 1;
+    }
+
+    return NULL;
+}
+
 void lista_enlazada_destruir(PListaEnlazada lista) {
     for (size_t i = lista->tam; 0 < i; i--) {
         lista_enlazada_quitar_primero(lista);

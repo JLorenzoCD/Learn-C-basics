@@ -16,6 +16,14 @@ bool mismo_elemento_lista(T x, T y) {
     return ((char*)x)[0] == ((char*)y)[0];
 }
 
+void lista_enlazada_mostrar_texto(PListaEnlazada lista) {
+    PNodo i = lista->primero;
+    while (i != NULL) {
+        printf("%s\n", (char*)i->dato);
+        i = i->siguiente;
+    }
+}
+
 int main(void) {
     prueba_cola();
     puts("\n");
@@ -62,32 +70,32 @@ void prueba_lista_enlazada(void) {
     char elemento_uno[] = "1° Elemnto de la lista";
     char elemento_dos[] = "2° Elemnto de la lista";
     char elemento_tres[] = "3° Elemnto de la lista";
+    char elemento_cuatro[] = "4° Elemnto de la lista";
 
     lista_enlazada_agregar(&lista_prueba, elemento_uno);
     lista_enlazada_agregar(&lista_prueba, elemento_dos);
     lista_enlazada_agregar(&lista_prueba, elemento_tres);
+    lista_enlazada_agregar(&lista_prueba, elemento_cuatro);
 
     printf("Tamaño de la lista enlazada = %li\n", lista_prueba.tam);
 
-    PNodo i = lista_prueba.primero;
-    while (i != NULL) {
-        printf("%s\n", (char*)i->dato);
-        i = i->siguiente;
-    }
+    lista_enlazada_mostrar_texto(&lista_prueba);
 
     size_t index = lista_enlazada_index_primera_concidencia(&lista_prueba, "3° Elemnto de la lista", &mismo_elemento_lista);
     if (index != NULL) {
-        printf("\n\nindice encontrado = %li\n\n", index);
+        printf("\n\nindice encontrado = %li\n", index);
+
+        lista_enlazada_quitar_segun_index(&lista_prueba, index);
+        printf("Se elimino el elemento de la lista que se encontraba en el indice %li\n\n", index);
+        lista_enlazada_mostrar_texto(&lista_prueba);
     }
+
+
 
     lista_enlazada_quitar_primero(&lista_prueba);
     lista_enlazada_quitar_ultimo(&lista_prueba);
-    puts("\nSegunda vuelta, luego de quitar el primer y ultimo dato");
-    i = lista_prueba.primero;
-    while (i != NULL) {
-        printf("%s\n", (char*)i->dato);
-        i = i->siguiente;
-    }
+    puts("\nQuitando el primer y ultimo elemnto");
+    lista_enlazada_mostrar_texto(&lista_prueba);
 
     lista_enlazada_destruir(&lista_prueba);
 }
