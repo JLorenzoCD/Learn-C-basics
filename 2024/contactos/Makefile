@@ -1,6 +1,6 @@
 CC = gcc
 CFLAGS = -Wall -Werror -Wextra -pedantic -g
-SOURCES = main.c opciones_agenda.c terminal.c
+SOURCES = main.c opciones_agenda.c terminal.c agenda_contacto.c
 OBJECTS = $(SOURCES:.c=.o)
 
 TARGET = agenda

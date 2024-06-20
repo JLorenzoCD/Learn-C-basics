@@ -13,6 +13,7 @@ const uint ULTIMA_OPCION = SALIR;
 
 
 
+
 static bool es_opcion_valida(int opcion) {
     --opcion;
 
@@ -31,6 +32,40 @@ static void imprimir_opciones() {
     );
 }
 
+char *opcion_a_str(OpcionesAgenda opcion) {
+    char *opcion_str = NULL;
+
+    switch (opcion) {
+    case OBTENER_TODOS_LOS_CONTACTOS:
+        opcion_str = "obtener todos los contactos";
+        break;
+
+    case OBTENER_UN_CONTACTO:
+        opcion_str = "obtener un contacto";
+        break;
+
+    case ALMACENAR_CONTACTO:
+        opcion_str = "almacenar contacto";
+        break;
+
+    case ACTUALIZAR_CONTACTO:
+        opcion_str = "actualizar contacto";
+        break;
+
+    case ELIMINAR_CONTACTO:
+        opcion_str = "eliminar contacto";
+        break;
+
+    case SALIR:
+        opcion_str = "salir";
+        break;
+
+    default:
+        opcion_str = "";
+    }
+
+    return opcion_str;
+}
 
 OpcionesAgenda obtener_opcion() {
     int opcion;
@@ -42,12 +77,9 @@ OpcionesAgenda obtener_opcion() {
         if (!es_opcion_valida(opcion)) {
             printf("\n**** Opción invalida. Seleccione un numero dentro del rango [%u-%u].\n", PRIMERA_OPCION + 1u, ULTIMA_OPCION + 1u);
         }
-        else {
-            printf("La opcion seleccionada es '%i'\n", opcion);
-        }
 
-        detener_terminal();
     } while (!es_opcion_valida(opcion));
 
+    opcion--;
     return (OpcionesAgenda)opcion;
 }

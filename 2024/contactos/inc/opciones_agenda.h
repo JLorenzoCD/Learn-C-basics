@@ -13,5 +13,6 @@ typedef enum {
 } OpcionesAgenda;
 
 OpcionesAgenda obtener_opcion();
+char *opcion_a_str(OpcionesAgenda opcion);
 
 #endif
