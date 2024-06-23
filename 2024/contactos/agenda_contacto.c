@@ -7,11 +7,11 @@ void agenda_contacto_iniciar() {
     printf("Se inicio con exito la agenda de contactos.\n");
 }
 
-void agenda_contacto_realizar_accion(OpcionesAgenda opcion) {
+void agenda_contacto_realizar_accion(OpcionesAgenda op) {
 
-    printf("Se esta realizando la siguiente accion: '%s'.\n", opcion_a_str(opcion));
+    printf("Se esta realizando la siguiente accion: '%s'.\n", opcion_a_str(op));
 
-    switch (opcion) {
+    switch (op) {
     case OBTENER_TODOS_LOS_CONTACTOS:
         // TODO
         break;

@@ -7,13 +7,13 @@
 int main(void) {
     agenda_contacto_iniciar();
 
-    OpcionesAgenda opcion;
+    OpcionesAgenda op;
     do {
-        opcion = obtener_opcion();
+        op = obtener_opcion();
 
-        agenda_contacto_realizar_accion(opcion);
+        agenda_contacto_realizar_accion(op);
         detener_terminal();
-    } while (opcion != SALIR);
+    } while (op != SALIR);
 
     agenda_contacto_destruir();
 

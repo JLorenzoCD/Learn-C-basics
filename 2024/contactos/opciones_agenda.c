@@ -6,6 +6,7 @@
 #include <stdio.h>
 
 #include "inc/terminal.h"
+#include "inc/imprimir.h"
 
 
 const uint PRIMERA_OPCION = OBTENER_TODOS_LOS_CONTACTOS;
@@ -18,18 +19,6 @@ static bool es_opcion_valida(int opcion) {
     --opcion;
 
     return PRIMERA_OPCION <= (uint)opcion && (uint)opcion <= ULTIMA_OPCION;
-}
-
-static void imprimir_opciones() {
-    printf(
-        "Selecciona una de las siguientes opciones:\n"
-        "1 ........Mostrar todos los contactos.\n"
-        "2 ........Buscar un contacto.\n"
-        "3 ........Almacenar contacto.\n"
-        "4 ........Modificar contacto.\n"
-        "5 ........Eliminar contacto.\n"
-        "6 ........Salir.\n"
-    );
 }
 
 char *opcion_a_str(OpcionesAgenda opcion) {
