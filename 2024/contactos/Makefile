@@ -1,11 +1,11 @@
 CC = gcc
 CFLAGS = -Wall -Werror -Wextra -pedantic -g
-SOURCES = main.c opciones_agenda.c terminal.c agenda_contacto.c imprimir.c
+SOURCES = main.c opciones_agenda.c terminal.c agenda_contacto.c imprimir.c contacto.c
 OBJECTS = $(SOURCES:.c=.o)
 
 TARGET = agenda
 
-.PHONY: clean
+.PHONY: clean run dev
 
 all: $(TARGET)
 
@@ -19,5 +19,7 @@ clean:
 	$(RM) $(OBJECTS) $(TARGET)
 
 
-run : $(TARGET)
+run: $(TARGET)
 	./$(TARGET)
+
+dev: clean all run
