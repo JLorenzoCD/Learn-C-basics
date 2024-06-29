@@ -22,10 +22,14 @@ int main(void) {
     ListaContacto lc = lista_contacto_from_file();
 
     printf("Cantidad de contactos en la db: %u\n", lista_contacto_size(lc));
-    if (lista_contacto_size(lc) != 0u) {
+    if (lista_contacto_size(lc) > 1u) {
         Contacto yo = lista_contacto_obtener_at(lc, 0u);
-
         contacto_imprimir(yo);
+
+        printf("\n");
+
+        Contacto tete = lista_contacto_obtener_at(lc, 1u);
+        contacto_imprimir(tete);
     }
 
     lista_contacto_destruir(&lc);

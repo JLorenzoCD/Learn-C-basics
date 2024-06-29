@@ -113,9 +113,6 @@ void contacto_destruir(Contacto *c) {
 }
 
 Contacto contacto_from_file_line(FILE *file) {
-    // char buffer[CONTACTO_MAX_SIZE_BUFFER] = "";
-    // fgets(buffer, sizeof(buffer), file);
-
     char fnombre[CONTACTO_MAX_SIZE_ATRIBUTO] = "";
     char fapellido[CONTACTO_MAX_SIZE_ATRIBUTO] = "";
     char ftelefono[CONTACTO_MAX_SIZE_ATRIBUTO] = "";
@@ -206,7 +203,7 @@ void lista_contacto_add(ListaContacto *lista_contacto, Contacto contacto) {
     if (lc->capacidad <= lc->length) {
         lc->capacidad = lc->capacidad * 2;
 
-        lc = (ListaContacto)realloc(lc->array, CONTACTO_SIZE * lc->capacidad);
+        lc->array = (Contacto*)realloc(lc->array, CONTACTO_SIZE * lc->capacidad);
         assert(lc != NULL);
     }
 
