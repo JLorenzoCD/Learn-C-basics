@@ -5,9 +5,10 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define CONTACTO_FORMATO_ESPERADO "%s, %s, %s, %s "
+#define CONTACTO_FORMATO_ESPERADO "%s , %s , %s , %s "
 #define CONTACTO_CANTIDAD_ATRIBUTOS 4u
 #define CONTACTO_MAX_SIZE_ATRIBUTO 50u
+#define CONTACTO_MAX_SIZE_BUFFER 255u
 
 #define CONTACTO_SIZE sizeof(struct Contacto)
 #define LISTA_CONTACTO_SIZE sizeof(struct ListaContacto)
@@ -112,10 +113,13 @@ void contacto_destruir(Contacto *c) {
 }
 
 Contacto contacto_from_file_line(FILE *file) {
-    char fnombre[CONTACTO_MAX_SIZE_ATRIBUTO];
-    char fapellido[CONTACTO_MAX_SIZE_ATRIBUTO];
-    char ftelefono[CONTACTO_MAX_SIZE_ATRIBUTO];
-    char femail[CONTACTO_MAX_SIZE_ATRIBUTO];
+    // char buffer[CONTACTO_MAX_SIZE_BUFFER] = "";
+    // fgets(buffer, sizeof(buffer), file);
+
+    char fnombre[CONTACTO_MAX_SIZE_ATRIBUTO] = "";
+    char fapellido[CONTACTO_MAX_SIZE_ATRIBUTO] = "";
+    char ftelefono[CONTACTO_MAX_SIZE_ATRIBUTO] = "";
+    char femail[CONTACTO_MAX_SIZE_ATRIBUTO] = "";
 
     int res = fscanf(file, CONTACTO_FORMATO_ESPERADO, fnombre, fapellido, ftelefono, femail);
 
@@ -123,7 +127,7 @@ Contacto contacto_from_file_line(FILE *file) {
         return NULL;
     }
 
-    assert(res != CONTACTO_CANTIDAD_ATRIBUTOS);
+    assert(res == CONTACTO_CANTIDAD_ATRIBUTOS);
 
     size_t len;
     char *nombre = NULL, *apellido = NULL, *telefono = NULL, *email = NULL;
@@ -192,7 +196,8 @@ void lista_contacto_destruir(ListaContacto *lista_contacto) {
         contacto_destruir(&(lc->array[i]));
     }
 
-    free(lista_contacto);
+    free(lc);
+    *lista_contacto = NULL;
 }
 
 void lista_contacto_add(ListaContacto *lista_contacto, Contacto contacto) {
