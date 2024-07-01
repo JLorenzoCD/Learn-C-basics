@@ -1,20 +1,22 @@
 #ifndef _CONTACTO_H
 #define _CONTACTO_H
 
-typedef unsigned int uint;
+#include <stdlib.h>
+#include <stdio.h>
 
 typedef struct Contacto* Contacto;
-typedef struct ListaContacto* ListaContacto;
 
+Contacto contacto_crear(char *nombre, char *apellido, char *telefono, char *email);
 char* contacto_obtener_nombre(Contacto contacto);
 char* contacto_obtener_apellido(Contacto contacto);
 char* contacto_obtener_telefono(Contacto contacto);
 char* contacto_obtener_email(Contacto contacto);
 void contacto_imprimir(Contacto c);
+Contacto contacto_clonar(Contacto contacto_a_clonar);
+void contacto_destruir(Contacto *c);
 
-ListaContacto lista_contacto_from_file();
-uint lista_contacto_size(ListaContacto lista_contacto);
-Contacto lista_contacto_obtener_at(ListaContacto lista_contacto, uint index);
-void lista_contacto_destruir(ListaContacto *lista_contacto);
+Contacto contacto_from_file_line(FILE *file);
+
+size_t contacto_size_t();
 
 #endif

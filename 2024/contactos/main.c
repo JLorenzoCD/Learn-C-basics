@@ -3,6 +3,7 @@
 
 // #include "inc/agenda_contacto.h"
 #include "inc/contacto.h"
+#include "inc/lista_contacto.h"
 // #include "inc/opciones_agenda.h"
 // #include "inc/terminal.h"
 
