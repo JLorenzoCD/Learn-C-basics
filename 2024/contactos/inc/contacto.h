@@ -4,6 +4,8 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+#define CONTACTO_MAX_SIZE_ATRIBUTO 50u
+
 typedef struct Contacto* Contacto;
 
 Contacto contacto_crear(const char *nombre, const char *apellido, const char *telefono, const char *email);

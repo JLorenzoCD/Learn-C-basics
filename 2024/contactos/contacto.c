@@ -7,8 +7,6 @@
 
 #define CONTACTO_FORMATO_ESPERADO "%s , %s , %s , %s "
 #define CONTACTO_CANTIDAD_ATRIBUTOS 4u
-#define CONTACTO_MAX_SIZE_ATRIBUTO 50u
-#define CONTACTO_MAX_SIZE_BUFFER 255u
 
 #define CONTACTO_SIZE sizeof(struct Contacto)
 
