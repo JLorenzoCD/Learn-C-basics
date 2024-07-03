@@ -9,7 +9,7 @@
 #include "inc/imprimir.h"
 
 
-const uint PRIMERA_OPCION = OBTENER_TODOS_LOS_CONTACTOS;
+const uint PRIMERA_OPCION = MOSTRAR_TODOS_LOS_CONTACTOS;
 const uint ULTIMA_OPCION = SALIR;
 
 
@@ -25,20 +25,20 @@ char *opcion_a_str(OpcionesAgenda opcion) {
     char *opcion_str = NULL;
 
     switch (opcion) {
-    case OBTENER_TODOS_LOS_CONTACTOS:
-        opcion_str = "obtener todos los contactos";
+    case MOSTRAR_TODOS_LOS_CONTACTOS:
+        opcion_str = "mostrar todos los contactos";
         break;
 
-    case OBTENER_UN_CONTACTO:
-        opcion_str = "obtener un contacto";
+    case BUSCAR_UN_CONTACTO:
+        opcion_str = "buscar un contacto";
         break;
 
     case ALMACENAR_CONTACTO:
         opcion_str = "almacenar contacto";
         break;
 
-    case ACTUALIZAR_CONTACTO:
-        opcion_str = "actualizar contacto";
+    case EDITAR_CONTACTO:
+        opcion_str = "editar contacto";
         break;
 
     case ELIMINAR_CONTACTO:
