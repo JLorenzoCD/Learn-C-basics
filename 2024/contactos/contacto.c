@@ -21,16 +21,34 @@ struct Contacto {
 
 size_t contacto_size_t() { return CONTACTO_SIZE; }
 
-Contacto contacto_crear(char *nombre, char *apellido, char *telefono, char *email) {
+Contacto contacto_crear(const char *nombre, const char *apellido, const char *telefono, const char *email) {
     Contacto nuevo_contacto = NULL;
 
     nuevo_contacto = (Contacto)malloc(CONTACTO_SIZE);
     assert(nuevo_contacto != NULL);
 
-    nuevo_contacto->nombre = nombre;
-    nuevo_contacto->apellido = apellido;
-    nuevo_contacto->telefono = telefono;
-    nuevo_contacto->email = email;
+    size_t len;
+
+    len = strlen(nombre);
+    nuevo_contacto->nombre = (char*)malloc(sizeof(char) * (len + 1u));
+    assert(nuevo_contacto->nombre != NULL);
+
+    len = strlen(apellido);
+    nuevo_contacto->apellido = (char*)malloc(sizeof(char) * (len + 1u));
+    assert(nuevo_contacto->apellido != NULL);
+
+    len = strlen(telefono);
+    nuevo_contacto->telefono = (char*)malloc(sizeof(char) * (len + 1u));
+    assert(nuevo_contacto->telefono != NULL);
+
+    len = strlen(email);
+    nuevo_contacto->email = (char*)malloc(sizeof(char) * (len + 1u));
+    assert(nuevo_contacto->email != NULL);
+
+    strcpy(nuevo_contacto->nombre, nombre);
+    strcpy(nuevo_contacto->apellido, apellido);
+    strcpy(nuevo_contacto->telefono, telefono);
+    strcpy(nuevo_contacto->email, email);
 
     return nuevo_contacto;
 }
@@ -59,37 +77,11 @@ void contacto_imprimir(Contacto c) {
 }
 
 Contacto contacto_clonar(Contacto contacto_a_clonar) {
-    size_t len;
-
-    char *nombre, *apellido, *telefono, *email;
-    nombre = apellido = telefono = email = NULL;
-
-    len = strlen(contacto_a_clonar->nombre);
-    nombre = (char*)malloc(sizeof(char) * (len + 1u));
-    assert(nombre != NULL);
-
-    len = strlen(contacto_a_clonar->apellido);
-    apellido = (char*)malloc(sizeof(char) * (len + 1u));
-    assert(apellido != NULL);
-
-    len = strlen(contacto_a_clonar->telefono);
-    telefono = (char*)malloc(sizeof(char) * (len + 1u));
-    assert(telefono != NULL);
-
-    len = strlen(contacto_a_clonar->email);
-    email = (char*)malloc(sizeof(char) * (len + 1u));
-    assert(email != NULL);
-
-    strcpy(nombre, contacto_a_clonar->nombre);
-    strcpy(apellido, contacto_a_clonar->apellido);
-    strcpy(telefono, contacto_a_clonar->telefono);
-    strcpy(email, contacto_a_clonar->email);
-
     return contacto_crear(
-        nombre,
-        apellido,
-        telefono,
-        email
+        contacto_a_clonar->nombre,
+        contacto_a_clonar->apellido,
+        contacto_a_clonar->telefono,
+        contacto_a_clonar->email
     );
 }
 
@@ -120,34 +112,10 @@ Contacto contacto_from_file_line(FILE *file) {
 
     assert(res == CONTACTO_CANTIDAD_ATRIBUTOS);
 
-    size_t len;
-    char *nombre = NULL, *apellido = NULL, *telefono = NULL, *email = NULL;
-
-    len = strlen(fnombre);
-    nombre = (char*)malloc(sizeof(char) * (len + 1u));
-    assert(nombre != NULL);
-
-    len = strlen(fapellido);
-    apellido = (char*)malloc(sizeof(char) * (len + 1u));
-    assert(apellido != NULL);
-
-    len = strlen(ftelefono);
-    telefono = (char*)malloc(sizeof(char) * (len + 1u));
-    assert(telefono != NULL);
-
-    len = strlen(femail);
-    email = (char*)malloc(sizeof(char) * (len + 1u));
-    assert(email != NULL);
-
-    strcpy(nombre, fnombre);
-    strcpy(apellido, fapellido);
-    strcpy(telefono, ftelefono);
-    strcpy(email, femail);
-
     return contacto_crear(
-        nombre,
-        apellido,
-        telefono,
-        email
+        fnombre,
+        fapellido,
+        ftelefono,
+        femail
     );
 }

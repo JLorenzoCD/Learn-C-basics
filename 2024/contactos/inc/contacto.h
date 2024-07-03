@@ -6,7 +6,7 @@
 
 typedef struct Contacto* Contacto;
 
-Contacto contacto_crear(char *nombre, char *apellido, char *telefono, char *email);
+Contacto contacto_crear(const char *nombre, const char *apellido, const char *telefono, const char *email);
 char* contacto_obtener_nombre(Contacto contacto);
 char* contacto_obtener_apellido(Contacto contacto);
 char* contacto_obtener_telefono(Contacto contacto);
