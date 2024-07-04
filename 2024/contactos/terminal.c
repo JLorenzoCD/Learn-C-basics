@@ -33,3 +33,14 @@ int obtener_entero(const char *mensaje_pedir_dato, const char *mensaje_error_dat
 
     return entero;
 }
+
+void obtener_str(char str[], size_t MAX_SIZE, const char *mensaje_pedir_dato) {
+    printf("%s", mensaje_pedir_dato);
+    fgets(str, MAX_SIZE, stdin);
+
+    for (size_t i = 0; i < MAX_SIZE; i++) {
+        if (str[i] == '\n') {
+            str[i] = '\0';
+        }
+    }
+}

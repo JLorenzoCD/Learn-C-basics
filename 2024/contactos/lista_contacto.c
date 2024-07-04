@@ -1,8 +1,10 @@
 #include "inc/lista_contacto.h"
 
 #include <assert.h>
+#include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 #include "inc/contacto.h"
 
@@ -14,7 +16,22 @@ struct ListaContacto {
     Contacto *array;
 };
 
+static int comparar_contactos(const void *a, const void *b) {
+    /*
+    Retorna:
+        Menor que 0	     =>       a < b
+        0	             =>       a == b
+        Mayor que 0	     =>       a > b
+    */
 
+    Contacto contacto_a = (Contacto)a;
+    Contacto contacto_b = (Contacto)b;
+
+    int cmp_nombre = strcmp(contacto_obtener_nombre(contacto_a), contacto_obtener_nombre(contacto_b));
+    if (cmp_nombre != 0u) return cmp_nombre;
+
+    return strcmp(contacto_obtener_apellido(contacto_a), contacto_obtener_apellido(contacto_b));
+}
 
 
 ListaContacto lista_contacto_crear() {
@@ -45,17 +62,6 @@ Contacto lista_contacto_obtener_at(ListaContacto lista_contacto, uint index) {
     return lista_contacto->array[index];
 }
 
-void lista_contacto_destruir(ListaContacto *lista_contacto) {
-    ListaContacto lc = *lista_contacto;
-
-    for (uint i = 0; i < lc->length; i++) {
-        contacto_destruir(&(lc->array[i]));
-    }
-
-    free(lc);
-    *lista_contacto = NULL;
-}
-
 void lista_contacto_add(ListaContacto *lista_contacto, Contacto contacto) {
     ListaContacto lc = *lista_contacto;
 
@@ -71,6 +77,23 @@ void lista_contacto_add(ListaContacto *lista_contacto, Contacto contacto) {
     lc->length++;
 
     *lista_contacto = lc;
+}
+
+void lista_contacto_ordenar_por_nombre(ListaContacto lista_contacto) {
+    size_t contacto_size = contacto_size_t();
+    qsort(lista_contacto->array, lista_contacto->length, contacto_size, comparar_contactos);
+}
+
+bool lista_contacto_existe(ListaContacto lista_contacto, Contacto contacto) {
+    for (uint i = 0; i < lista_contacto->length; i++) {
+        Contacto contacto_actual = lista_contacto->array[i];
+
+        if (comparar_contactos((void *)contacto_actual, (void *)contacto) == 0) {
+            return true;
+        }
+    }
+
+    return false;
 }
 
 ListaContacto lista_contacto_from_file() {
@@ -97,4 +120,15 @@ ListaContacto lista_contacto_from_file() {
     fclose(file);
 
     return lista_contacto;
+}
+
+void lista_contacto_destruir(ListaContacto *lista_contacto) {
+    ListaContacto lc = *lista_contacto;
+
+    for (uint i = 0; i < lc->length; i++) {
+        contacto_destruir(&(lc->array[i]));
+    }
+
+    free(lc);
+    *lista_contacto = NULL;
 }
