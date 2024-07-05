@@ -1,10 +1,36 @@
 #include "inc/terminal.h"
 
+#include <ctype.h>
 #include <stdio.h>
+#include <string.h>
 
 #include <fcntl.h>   // Para F_GETFL y F_SETFL
 #include <unistd.h>  // Para STDIN_FILENO
 
+
+static char *ltrim(char *s) {
+    while (isspace(*s)) { s++; }
+
+    return s;
+}
+
+static char *rtrim(char *s) {
+    char* back;
+    int len = strlen(s);
+
+    if (len == 0) return s;
+
+    back = s + len;
+    while (isspace(*(--back)));
+
+    *(back + 1) = '\0';
+
+    return s;
+}
+
+static char *trim(char *s) {
+    return rtrim(ltrim(s));
+}
 
 /* void limpiar_stdin() {
     int c;
@@ -65,9 +91,13 @@ void obtener_str(char str[], size_t MAX_SIZE, const char *mensaje_pedir_dato) {
     printf("%s", mensaje_pedir_dato);
     fgets(str, MAX_SIZE, stdin);
 
+    str[MAX_SIZE - 1] = '\0';
+
     for (size_t i = 0; i < MAX_SIZE; i++) {
         if (str[i] == '\n') {
             str[i] = '\0';
         }
     }
+
+    strcpy(str, trim(str));
 }

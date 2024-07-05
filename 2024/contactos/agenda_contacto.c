@@ -31,13 +31,10 @@ static void almacenar_contacto() {
     char email[CONTACTO_MAX_SIZE_ATRIBUTO] = "";
 
     limpiar_stdin();
-    obtener_str(nombre, CONTACTO_MAX_SIZE_ATRIBUTO, "Ingrese el nombre del nuevo contacto:");
-    obtener_str(apellido, CONTACTO_MAX_SIZE_ATRIBUTO, "Ingrese el apellido del nuevo contacto:");
-    obtener_str(telefono, CONTACTO_MAX_SIZE_ATRIBUTO, "Ingrese el teléfono del nuevo contacto:");
-    obtener_str(email, CONTACTO_MAX_SIZE_ATRIBUTO, "Ingrese el email del nuevo contacto:");
-
-    // TODO: Luego de escribir el email se me queda en espera el stdin, por lo que se debe estar pidiendo algo mas que de momento no veo.
-    // TODO: Tengo que hacer un trim de los campos que son string para no tener elementos repetidos, que no lo parece debido a los espacios.
+    obtener_str(nombre, CONTACTO_MAX_SIZE_ATRIBUTO, "Ingrese el nombre del nuevo contacto: ");
+    obtener_str(apellido, CONTACTO_MAX_SIZE_ATRIBUTO, "Ingrese el apellido del nuevo contacto: ");
+    obtener_str(telefono, CONTACTO_MAX_SIZE_ATRIBUTO, "Ingrese el teléfono del nuevo contacto: ");
+    obtener_str(email, CONTACTO_MAX_SIZE_ATRIBUTO, "Ingrese el email del nuevo contacto: ");
 
     Contacto nuevo_contacto = contacto_crear(nombre, apellido, telefono, email);
 
@@ -47,7 +44,7 @@ static void almacenar_contacto() {
     }
 
     lista_contacto_add(&LISTA_CONTACTO, nuevo_contacto);
-    puts("Se a creado y guardado con éxito el siguiente contacto:");
+    puts("\n\nSe a creado y guardado con éxito el siguiente contacto:");
     contacto_imprimir(nuevo_contacto);
 
     assert(lista_contacto_existe(LISTA_CONTACTO, nuevo_contacto));
