@@ -2,9 +2,36 @@
 
 #include <stdio.h>
 
-void limpiar_stdin() {
+#include <fcntl.h>   // Para F_GETFL y F_SETFL
+#include <unistd.h>  // Para STDIN_FILENO
+
+
+/* void limpiar_stdin() {
     int c;
     while ((c = getchar()) != '\n' && c != EOF);
+} */
+
+void limpiar_stdin() {
+    int old_flags = fcntl(STDIN_FILENO, F_GETFL, 0);
+    if (old_flags == -1) {
+        perror("fcntl");
+        exit(EXIT_FAILURE);
+    }
+
+    // Establecer stdin en modo no bloqueante
+    if (fcntl(STDIN_FILENO, F_SETFL, old_flags | O_NONBLOCK) == -1) {
+        perror("fcntl");
+        exit(EXIT_FAILURE);
+    }
+
+    int c;
+    while ((c = getchar()) != '\n' && c != EOF);
+
+    // Restaurar los flags originales de stdin
+    if (fcntl(STDIN_FILENO, F_SETFL, old_flags) == -1) {
+        perror("fcntl");
+        exit(EXIT_FAILURE);
+    }
 }
 
 void detener_terminal() {
