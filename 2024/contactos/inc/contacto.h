@@ -17,6 +17,7 @@ void contacto_imprimir(Contacto c);
 Contacto contacto_clonar(Contacto contacto_a_clonar);
 void contacto_destruir(Contacto *c);
 
+Contacto contacto_craer_por_input(const char *mensaje_pedir_nombre, const char *mensaje_pedir_apellido, const char *mensaje_pedir_telefono, const char *mensaje_pedir_email);
 Contacto contacto_from_file_line(FILE *file);
 
 size_t contacto_size_t();

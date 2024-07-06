@@ -25,18 +25,12 @@ static void imprimir_contactos() {
 static void buscar_contacto() {}
 
 static void almacenar_contacto() {
-    char nombre[CONTACTO_MAX_SIZE_ATRIBUTO] = "";
-    char apellido[CONTACTO_MAX_SIZE_ATRIBUTO] = "";
-    char telefono[CONTACTO_MAX_SIZE_ATRIBUTO] = "";
-    char email[CONTACTO_MAX_SIZE_ATRIBUTO] = "";
-
-    limpiar_stdin();
-    obtener_str(nombre, CONTACTO_MAX_SIZE_ATRIBUTO, "Ingrese el nombre del nuevo contacto: ");
-    obtener_str(apellido, CONTACTO_MAX_SIZE_ATRIBUTO, "Ingrese el apellido del nuevo contacto: ");
-    obtener_str(telefono, CONTACTO_MAX_SIZE_ATRIBUTO, "Ingrese el teléfono del nuevo contacto: ");
-    obtener_str(email, CONTACTO_MAX_SIZE_ATRIBUTO, "Ingrese el email del nuevo contacto: ");
-
-    Contacto nuevo_contacto = contacto_crear(nombre, apellido, telefono, email);
+    Contacto nuevo_contacto = contacto_craer_por_input(
+        "Ingrese el nombre del nuevo contacto: ",
+        "Ingrese el apellido del nuevo contacto: ",
+        "Ingrese el teléfono del nuevo contacto: ",
+        "Ingrese el email del nuevo contacto: "
+    );
 
     if (lista_contacto_existe(LISTA_CONTACTO, nuevo_contacto)) {
         puts("El nombre del contacto ya se encuentra en la agenda, si desea modificar el contacto seleccione la opción 'Actualizar contacto', en caso contrario intente con otro nombre");
@@ -60,21 +54,23 @@ void agenda_contacto_iniciar() {
 }
 
 void agenda_contacto_realizar_accion(OpcionesAgenda op) {
+    printf("\n\n");
 
     printf("Se esta realizando la siguiente accion: '%s'.\n", opcion_a_str(op));
 
     switch (op) {
     case MOSTRAR_TODOS_LOS_CONTACTOS:
-        printf("\nTus contactos guardados (%u):\n", lista_contacto_size(LISTA_CONTACTO));
+        printf("Tus contactos guardados (%u):\n", lista_contacto_size(LISTA_CONTACTO));
         imprimir_contactos();
         break;
 
     case BUSCAR_UN_CONTACTO:
-        // TODO
+        puts("Ingrese el nombre del contacto a buscar.");
         buscar_contacto();
         break;
 
     case ALMACENAR_CONTACTO:
+        puts("Rellene el siguiente formulario para crear un contacto.");
         almacenar_contacto();
         break;
 

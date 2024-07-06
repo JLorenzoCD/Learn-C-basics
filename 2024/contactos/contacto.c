@@ -1,9 +1,13 @@
 #include "inc/contacto.h"
 
+
+
 #include <assert.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+
+#include "inc/terminal.h"
 
 #define CONTACTO_FORMATO_ESPERADO "%s , %s , %s , %s "
 #define CONTACTO_CANTIDAD_ATRIBUTOS 4u
@@ -18,6 +22,28 @@ struct Contacto {
 };
 
 size_t contacto_size_t() { return CONTACTO_SIZE; }
+
+Contacto contacto_craer_por_input(
+    const char *mensaje_pedir_nombre,
+    const char *mensaje_pedir_apellido,
+    const char *mensaje_pedir_telefono,
+    const char *mensaje_pedir_email
+) {
+    char nombre[CONTACTO_MAX_SIZE_ATRIBUTO] = "";
+    char apellido[CONTACTO_MAX_SIZE_ATRIBUTO] = "";
+    char telefono[CONTACTO_MAX_SIZE_ATRIBUTO] = "";
+    char email[CONTACTO_MAX_SIZE_ATRIBUTO] = "";
+
+    limpiar_stdin();
+    obtener_str(nombre, CONTACTO_MAX_SIZE_ATRIBUTO, mensaje_pedir_nombre);
+    obtener_str(apellido, CONTACTO_MAX_SIZE_ATRIBUTO, mensaje_pedir_apellido);
+    obtener_str(telefono, CONTACTO_MAX_SIZE_ATRIBUTO, mensaje_pedir_telefono);
+    obtener_str(email, CONTACTO_MAX_SIZE_ATRIBUTO, mensaje_pedir_email);
+
+    Contacto nuevo_contacto = contacto_crear(nombre, apellido, telefono, email);
+
+    return nuevo_contacto;
+}
 
 Contacto contacto_crear(const char *nombre, const char *apellido, const char *telefono, const char *email) {
     Contacto nuevo_contacto = NULL;
