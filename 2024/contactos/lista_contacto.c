@@ -122,6 +122,41 @@ ListaContacto lista_contacto_from_file() {
     return lista_contacto;
 }
 
+ListaContacto lista_contacto_filtrar(ListaContacto lista_contacto, ContactoPropiedad filtro, const char* valor) {
+
+    ListaContacto lc_filtrada = lista_contacto_crear();
+
+    for (uint i = 0; i < lista_contacto->length; i++) {
+        Contacto contacto_actual = lista_contacto->array[i];
+
+        // Las propiedades son strings, por lo que la forma en la que se va a comparar para filtrar es la misma.
+        switch (filtro) {
+        case NOMBRE:
+            if (strstr(contacto_obtener_nombre(contacto_actual), valor) != NULL) {
+                lista_contacto_add(&lc_filtrada, contacto_clonar(contacto_actual));
+            }
+            break;
+        case APELLIDO:
+            if (strstr(contacto_obtener_apellido(contacto_actual), valor) != NULL) {
+                lista_contacto_add(&lc_filtrada, contacto_clonar(contacto_actual));
+            }
+            break;
+        case TELEFONO:
+            if (strstr(contacto_obtener_telefono(contacto_actual), valor) != NULL) {
+                lista_contacto_add(&lc_filtrada, contacto_clonar(contacto_actual));
+            }
+            break;
+        case EMAIL:
+            if (strstr(contacto_obtener_email(contacto_actual), valor) != NULL) {
+                lista_contacto_add(&lc_filtrada, contacto_clonar(contacto_actual));
+            }
+            break;
+        }
+    }
+
+    return lc_filtrada;
+}
+
 void lista_contacto_destruir(ListaContacto *lista_contacto) {
     ListaContacto lc = *lista_contacto;
 
