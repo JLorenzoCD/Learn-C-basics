@@ -8,6 +8,8 @@
 
 typedef struct Contacto* Contacto;
 
+typedef enum { NOMBRE, APELLIDO, TELEFONO, EMAIL } ContactoPropiedad;
+
 Contacto contacto_crear(const char *nombre, const char *apellido, const char *telefono, const char *email);
 char* contacto_obtener_nombre(Contacto contacto);
 char* contacto_obtener_apellido(Contacto contacto);
@@ -21,5 +23,6 @@ Contacto contacto_craer_por_input(const char *mensaje_pedir_nombre, const char *
 Contacto contacto_from_file_line(FILE *file);
 
 size_t contacto_size_t();
+char *contacto_propiedad_a_str(ContactoPropiedad propiedad);
 
 #endif

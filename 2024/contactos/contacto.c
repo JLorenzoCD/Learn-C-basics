@@ -143,3 +143,31 @@ Contacto contacto_from_file_line(FILE *file) {
         femail
     );
 }
+
+
+char *contacto_propiedad_a_str(ContactoPropiedad propiedad) {
+    char *propiedad_str = NULL;
+
+    switch (propiedad) {
+    case NOMBRE:
+        propiedad_str = "nombre";
+        break;
+
+    case APELLIDO:
+        propiedad_str = "apellido";
+        break;
+
+    case TELEFONO:
+        propiedad_str = "telefono";
+        break;
+
+    case EMAIL:
+        propiedad_str = "email";
+        break;
+
+    default:
+        propiedad_str = "";
+    }
+
+    return propiedad_str;
+}
