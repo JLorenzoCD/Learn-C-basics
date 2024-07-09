@@ -4,6 +4,7 @@
 
 #include <assert.h>
 #include <stdio.h>
+#include <stdbool.h>
 #include <stdlib.h>
 #include <string.h>
 
@@ -170,4 +171,10 @@ char *contacto_propiedad_a_str(ContactoPropiedad propiedad) {
     }
 
     return propiedad_str;
+}
+
+bool contacto_propiedad_es_valido(int opcion) {
+    --opcion;
+
+    return CONTACTO_PROPIEDAD_PRIMERA <= opcion && opcion <= CONTACTO_PROPIEDAD_ULTIMA;
 }

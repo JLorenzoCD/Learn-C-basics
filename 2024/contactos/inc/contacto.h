@@ -1,14 +1,21 @@
 #ifndef _CONTACTO_H
 #define _CONTACTO_H
 
+#include <stdbool.h>
 #include <stdlib.h>
 #include <stdio.h>
 
 #define CONTACTO_MAX_SIZE_ATRIBUTO 50u
 
+typedef unsigned int uint;
+
 typedef struct Contacto* Contacto;
 
 typedef enum { NOMBRE, APELLIDO, TELEFONO, EMAIL } ContactoPropiedad;
+#define CONTACTO_PROPIEDAD_PRIMERA NOMBRE
+#define CONTACTO_PROPIEDAD_ULTIMA EMAIL
+
+
 
 Contacto contacto_crear(const char *nombre, const char *apellido, const char *telefono, const char *email);
 char* contacto_obtener_nombre(Contacto contacto);
@@ -24,5 +31,6 @@ Contacto contacto_from_file_line(FILE *file);
 
 size_t contacto_size_t();
 char *contacto_propiedad_a_str(ContactoPropiedad propiedad);
+bool contacto_propiedad_es_valido(int opcion);
 
 #endif
