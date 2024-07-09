@@ -1,6 +1,8 @@
 #ifndef _OPCIONES_AGENDA_H
 #define _OPCIONES_AGENDA_H
 
+#include "contacto.h"
+
 typedef unsigned int uint;
 
 typedef enum {
@@ -12,7 +14,12 @@ typedef enum {
     SALIR
 } OpcionesAgenda;
 
-OpcionesAgenda obtener_opcion();
-char *opcion_a_str(OpcionesAgenda opcion);
+#define PRIMERA_OPCION MOSTRAR_TODOS_LOS_CONTACTOS
+#define ULTIMA_OPCION SALIR
+
+OpcionesAgenda agenda_contacto_obtener_opcion(void);
+char *agenda_contacto_opcion_a_str(OpcionesAgenda opcion);
+
+ContactoPropiedad contacto_propiedad_obtener_opcion(void);
 
 #endif

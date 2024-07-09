@@ -10,7 +10,7 @@ int main(void) {
 
     OpcionesAgenda op;
     do {
-        op = obtener_opcion();
+        op = agenda_contacto_obtener_opcion();
 
         agenda_contacto_realizar_accion(op);
 
