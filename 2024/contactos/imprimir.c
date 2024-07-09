@@ -13,3 +13,10 @@ void imprimir_opciones() {
         "6) ........ Salir.\n"
     );
 }
+
+void imprimir_opciones_contacto_propiedad() {
+    puts("1) Nombre.");
+    puts("2) Apellido.");
+    puts("3) Numero de teléfono.");
+    puts("4) Email.");
+}
