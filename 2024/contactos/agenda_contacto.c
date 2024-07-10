@@ -10,11 +10,11 @@
 
 static ListaContacto LISTA_CONTACTO;
 
-static void imprimir_contactos() {
-    uint len = lista_contacto_size(LISTA_CONTACTO);
+static void imprimir_contactos(ListaContacto lista_contacto) {
+    uint len = lista_contacto_size(lista_contacto);
 
     for (uint i = 0; i < len; i++) {
-        Contacto contacto_actual = lista_contacto_obtener_at(LISTA_CONTACTO, i);
+        Contacto contacto_actual = lista_contacto_obtener_at(lista_contacto, i);
 
         printf("--------------- %u -------------------\n", (i + 1u));
         contacto_imprimir(contacto_actual);
@@ -22,7 +22,26 @@ static void imprimir_contactos() {
     }
 }
 
-static void buscar_contacto() {}
+static void buscar_contacto(ContactoPropiedad contacto_propidad) {
+    printf("Ingrese el valor de '%s' por el cual desea buscar: ", contacto_propiedad_a_str(contacto_propidad));
+    char value[CONTACTO_MAX_SIZE_ATRIBUTO] = "";
+
+
+    limpiar_stdin();
+    obtener_str(value, CONTACTO_MAX_SIZE_ATRIBUTO, "");
+
+    ListaContacto lc_f = lista_contacto_filtrar(LISTA_CONTACTO, contacto_propidad, value);
+
+    if (lista_contacto_size(lc_f) != 0u) {
+        puts("Se a encontrado los siguientes contactos: ");
+        imprimir_contactos(lc_f);
+    }
+    else {
+        puts("No se a encontrado ningún contacto.");
+    }
+
+    lista_contacto_destruir(&lc_f);
+}
 
 static void almacenar_contacto() {
     Contacto nuevo_contacto = contacto_craer_por_input(
@@ -56,17 +75,19 @@ void agenda_contacto_iniciar() {
 void agenda_contacto_realizar_accion(OpcionesAgenda op) {
     printf("\n\n");
 
-    printf("Se esta realizando la siguiente accion: '%s'.\n", opcion_a_str(op));
+    printf("Se esta realizando la siguiente accion: '%s'.\n", agenda_contacto_opcion_a_str(op));
 
     switch (op) {
     case MOSTRAR_TODOS_LOS_CONTACTOS:
         printf("Tus contactos guardados (%u):\n", lista_contacto_size(LISTA_CONTACTO));
-        imprimir_contactos();
+        imprimir_contactos(LISTA_CONTACTO);
         break;
 
     case BUSCAR_UN_CONTACTO:
-        puts("Ingrese el nombre del contacto a buscar.");
-        buscar_contacto();
+        puts("########### Búsqueda de contacto ###########");
+        puts("Por cual de las siguientes propiedades deseas buscar a tu contacto?");
+        ContactoPropiedad c_propiedad = contacto_propiedad_obtener_opcion();
+        buscar_contacto(c_propiedad);
         break;
 
     case ALMACENAR_CONTACTO:
@@ -91,6 +112,6 @@ void agenda_contacto_realizar_accion(OpcionesAgenda op) {
 }
 
 void agenda_contacto_destruir() {
-    puts("Se destruyo con exito la agenda de contactos.");
+    puts("Se destruyo con éxito la agenda de contactos.");
     lista_contacto_destruir(&LISTA_CONTACTO);
 }
