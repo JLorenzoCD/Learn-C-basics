@@ -16,8 +16,9 @@ typedef enum { NOMBRE, APELLIDO, TELEFONO, EMAIL } ContactoPropiedad;
 #define CONTACTO_PROPIEDAD_ULTIMA EMAIL
 
 
-
-Contacto contacto_crear(const char *nombre, const char *apellido, const char *telefono, const char *email);
+uint contacto_generar_id();
+Contacto contacto_crear(uint id, const char *nombre, const char *apellido, const char *telefono, const char *email);
+uint contacto_obtener_id(Contacto contacto);
 char* contacto_obtener_nombre(Contacto contacto);
 char* contacto_obtener_apellido(Contacto contacto);
 char* contacto_obtener_telefono(Contacto contacto);

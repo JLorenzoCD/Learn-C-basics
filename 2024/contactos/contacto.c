@@ -1,28 +1,38 @@
 #include "inc/contacto.h"
 
 
-
 #include <assert.h>
 #include <stdio.h>
 #include <stdbool.h>
 #include <stdlib.h>
 #include <string.h>
+#include <limits.h>
+#include <time.h>
 
 #include "inc/terminal.h"
 
-#define CONTACTO_FORMATO_ESPERADO "%s , %s , %s , %s "
-#define CONTACTO_CANTIDAD_ATRIBUTOS 4u
+
+#define CONTACTO_FORMATO_ESPERADO "%u , %s , %s , %s , %s "
+#define CONTACTO_CANTIDAD_ATRIBUTOS 5u
 
 #define CONTACTO_SIZE sizeof(struct Contacto)
 
 struct Contacto {
+    uint id;
     char *nombre;
     char *apellido;
     char *telefono;
     char *email;
 };
 
+
 size_t contacto_size_t() { return CONTACTO_SIZE; }
+
+uint contacto_generar_id() {
+    int numero_random = arc4random();
+
+    return (uint)numero_random;
+}
 
 Contacto contacto_craer_por_input(
     const char *mensaje_pedir_nombre,
@@ -41,12 +51,14 @@ Contacto contacto_craer_por_input(
     obtener_str(telefono, CONTACTO_MAX_SIZE_ATRIBUTO, mensaje_pedir_telefono);
     obtener_str(email, CONTACTO_MAX_SIZE_ATRIBUTO, mensaje_pedir_email);
 
-    Contacto nuevo_contacto = contacto_crear(nombre, apellido, telefono, email);
+    uint id = contacto_generar_id();
+
+    Contacto nuevo_contacto = contacto_crear(id, nombre, apellido, telefono, email);
 
     return nuevo_contacto;
 }
 
-Contacto contacto_crear(const char *nombre, const char *apellido, const char *telefono, const char *email) {
+Contacto contacto_crear(uint id, const char *nombre, const char *apellido, const char *telefono, const char *email) {
     Contacto nuevo_contacto = NULL;
 
     nuevo_contacto = (Contacto)malloc(CONTACTO_SIZE);
@@ -70,12 +82,17 @@ Contacto contacto_crear(const char *nombre, const char *apellido, const char *te
     nuevo_contacto->email = (char*)malloc(sizeof(char) * (len + 1u));
     assert(nuevo_contacto->email != NULL);
 
+    nuevo_contacto->id = id;
     strcpy(nuevo_contacto->nombre, nombre);
     strcpy(nuevo_contacto->apellido, apellido);
     strcpy(nuevo_contacto->telefono, telefono);
     strcpy(nuevo_contacto->email, email);
 
     return nuevo_contacto;
+}
+
+uint contacto_obtener_id(Contacto contacto) {
+    return contacto->id;
 }
 
 char* contacto_obtener_nombre(Contacto contacto) {
@@ -95,6 +112,7 @@ char* contacto_obtener_email(Contacto contacto) {
 }
 
 void contacto_imprimir(Contacto c) {
+    // printf("ID: %u\n", c->id);
     printf("Nombre: %s\n", c->nombre);
     printf("Apellido: %s\n", c->apellido);
     printf("Tel.: %s\n", c->telefono);
@@ -103,6 +121,7 @@ void contacto_imprimir(Contacto c) {
 
 Contacto contacto_clonar(Contacto contacto_a_clonar) {
     return contacto_crear(
+        contacto_a_clonar->id,
         contacto_a_clonar->nombre,
         contacto_a_clonar->apellido,
         contacto_a_clonar->telefono,
@@ -124,12 +143,13 @@ void contacto_destruir(Contacto *c) {
 }
 
 Contacto contacto_from_file_line(FILE *file) {
+    uint id = 0u;
     char fnombre[CONTACTO_MAX_SIZE_ATRIBUTO] = "";
     char fapellido[CONTACTO_MAX_SIZE_ATRIBUTO] = "";
     char ftelefono[CONTACTO_MAX_SIZE_ATRIBUTO] = "";
     char femail[CONTACTO_MAX_SIZE_ATRIBUTO] = "";
 
-    int res = fscanf(file, CONTACTO_FORMATO_ESPERADO, fnombre, fapellido, ftelefono, femail);
+    int res = fscanf(file, CONTACTO_FORMATO_ESPERADO, &id, fnombre, fapellido, ftelefono, femail);
 
     if (res == -1) {  // No hay nada
         return NULL;
@@ -138,6 +158,7 @@ Contacto contacto_from_file_line(FILE *file) {
     assert(res == CONTACTO_CANTIDAD_ATRIBUTOS);
 
     return contacto_crear(
+        id,
         fnombre,
         fapellido,
         ftelefono,
