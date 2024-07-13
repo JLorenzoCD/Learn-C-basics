@@ -30,6 +30,7 @@ void contacto_destruir(Contacto *c);
 
 Contacto contacto_craer_por_input(const char *mensaje_pedir_nombre, const char *mensaje_pedir_apellido, const char *mensaje_pedir_telefono, const char *mensaje_pedir_email);
 Contacto contacto_from_file_line(FILE *file);
+void contacto_to_file_line(FILE *file, Contacto contacto);
 
 size_t contacto_size_t();
 char *contacto_propiedad_a_str(ContactoPropiedad propiedad);

@@ -216,6 +216,10 @@ Contacto contacto_from_file_line(FILE *file) {
     );
 }
 
+void contacto_to_file_line(FILE *file, Contacto contacto) {
+    fprintf(file, CONTACTO_FORMATO_ESPERADO "\n", contacto->id, contacto->nombre, contacto->apellido, contacto->telefono, contacto->email);
+}
+
 
 char *contacto_propiedad_a_str(ContactoPropiedad propiedad) {
     char *propiedad_str = NULL;

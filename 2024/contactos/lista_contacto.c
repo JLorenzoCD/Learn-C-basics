@@ -137,6 +137,7 @@ void lista_contacto_eliminar_contacto_por_id(ListaContacto lista_contacto, uint 
 ListaContacto lista_contacto_from_file() {
     char filepath[] = "db/contacto.db";
 
+
     FILE *file = NULL;
     file = fopen(filepath, "r");
 
@@ -159,6 +160,27 @@ ListaContacto lista_contacto_from_file() {
 
     return lista_contacto;
 }
+
+void lista_contacto_to_file(ListaContacto lista_contacto) {
+    char filepath[] = "db/contacto.db";
+
+    FILE *file = NULL;
+    file = fopen(filepath, "w");
+
+    if (file == NULL) {
+        fprintf(stderr, "%s", "File does not exist.\n");
+        exit(EXIT_FAILURE);
+    }
+
+    for (uint i = 0; i < lista_contacto->length; i++) {
+        Contacto c = lista_contacto->array[i];
+
+        contacto_to_file_line(file, c);
+    }
+
+    fclose(file);
+}
+
 
 ListaContacto lista_contacto_filtrar(ListaContacto lista_contacto, ContactoPropiedad filtro, const char* valor) {
 

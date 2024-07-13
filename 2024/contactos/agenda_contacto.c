@@ -239,6 +239,8 @@ void agenda_contacto_realizar_accion(OpcionesAgenda op) {
 }
 
 void agenda_contacto_destruir(void) {
-    puts("Se destruyo con éxito la agenda de contactos.");
+    puts("Se guardo y destruyo con éxito la agenda de contactos.");
+    lista_contacto_to_file(LISTA_CONTACTO);
+
     lista_contacto_destruir(&LISTA_CONTACTO);
 }
