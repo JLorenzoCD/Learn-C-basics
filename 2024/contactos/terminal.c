@@ -87,6 +87,21 @@ int obtener_entero(const char *mensaje_pedir_dato, const char *mensaje_error_dat
     return entero;
 }
 
+int obtener_entero_entre(const char *mensaje_pedir_dato, const char *mensaje_error_dato, int num_min, int num_max) {
+    int num;
+
+    do {
+        num = obtener_entero(mensaje_pedir_dato, mensaje_error_dato);
+
+        if (!(num_min <= num && num <= num_max)) {
+            printf("\n**** Opción invalida. Seleccione un numero dentro del rango [%u-%u].\n", num_min, num_max);
+        }
+
+    } while (!(num_min <= num && num <= num_max));
+
+    return num;
+}
+
 void obtener_str(char str[], size_t MAX_SIZE, const char *mensaje_pedir_dato) {
     printf("%s", mensaje_pedir_dato);
     fgets(str, MAX_SIZE, stdin);
