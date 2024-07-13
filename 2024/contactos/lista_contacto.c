@@ -84,7 +84,7 @@ void lista_contacto_ordenar_por_nombre(ListaContacto lista_contacto) {
     qsort(lista_contacto->array, lista_contacto->length, contacto_size, comparar_contactos);
 }
 
-bool lista_contacto_existe(ListaContacto lista_contacto, Contacto contacto) {
+bool lista_contacto_existe_nombre_contacto(ListaContacto lista_contacto, Contacto contacto) {
     for (uint i = 0; i < lista_contacto->length; i++) {
         Contacto contacto_actual = lista_contacto->array[i];
 
@@ -94,6 +94,44 @@ bool lista_contacto_existe(ListaContacto lista_contacto, Contacto contacto) {
     }
 
     return false;
+}
+
+Contacto lista_contacto_obtener_contacto_por_id(ListaContacto lista_contacto, uint contacto_id) {
+    Contacto c = NULL;
+
+    for (uint i = 0u; i < lista_contacto->length; i++) {
+        if (contacto_obtener_id(lista_contacto->array[i]) == contacto_id) {
+            c = lista_contacto->array[i];
+        }
+    }
+
+    return c;
+}
+
+void lista_contacto_eliminar_contacto_por_id(ListaContacto lista_contacto, uint contacto_id) {
+    Contacto c = NULL;
+
+    uint i = 0u;
+
+    while (i < lista_contacto->length && c == NULL) {
+        if (contacto_obtener_id(lista_contacto->array[i]) == contacto_id) {
+            c = lista_contacto->array[i];
+        }
+
+        i++;
+    }
+
+    if (c == NULL) return;
+
+    contacto_destruir(&c);
+
+    while (i < lista_contacto->length) {
+        lista_contacto->array[i - 1] = lista_contacto->array[i];
+
+        i++;
+    }
+
+    lista_contacto->length--;
 }
 
 ListaContacto lista_contacto_from_file() {
