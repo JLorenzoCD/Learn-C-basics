@@ -202,8 +202,9 @@ static void accion_eliminar_contacto(void) {
 
 
 void agenda_contacto_iniciar(void) {
-    puts("Se inicio con éxito la agenda de contactos.");
     LISTA_CONTACTO = lista_contacto_from_file();
+
+    puts("Se inicio con éxito la agenda de contactos.");
 }
 
 void agenda_contacto_realizar_accion(OpcionesAgenda op) {
@@ -239,8 +240,8 @@ void agenda_contacto_realizar_accion(OpcionesAgenda op) {
 }
 
 void agenda_contacto_destruir(void) {
-    puts("Se guardo y destruyo con éxito la agenda de contactos.");
     lista_contacto_to_file(LISTA_CONTACTO);
-
     lista_contacto_destruir(&LISTA_CONTACTO);
+
+    puts("Se guardo éxito la agenda de contactos.");
 }
