@@ -91,6 +91,56 @@ Contacto contacto_crear(uint id, const char *nombre, const char *apellido, const
     return nuevo_contacto;
 }
 
+void contacto_modificar(Contacto contacto, ContactoPropiedad propiedad, const char* valor) {
+    size_t len;
+
+    switch (propiedad) {
+    case NOMBRE:
+        free(contacto->nombre);
+        contacto->nombre = NULL;
+
+        len = strlen(valor);
+        contacto->nombre = (char*)malloc(sizeof(char) * (len + 1u));
+        assert(contacto->nombre != NULL);
+
+        strcpy(contacto->nombre, valor);
+        break;
+
+    case APELLIDO:
+        free(contacto->apellido);
+        contacto->apellido = NULL;
+
+        len = strlen(valor);
+        contacto->apellido = (char*)malloc(sizeof(char) * (len + 1u));
+        assert(contacto->apellido != NULL);
+
+        strcpy(contacto->apellido, valor);
+        break;
+
+    case TELEFONO:
+        free(contacto->telefono);
+        contacto->telefono = NULL;
+
+        len = strlen(valor);
+        contacto->telefono = (char*)malloc(sizeof(char) * (len + 1u));
+        assert(contacto->telefono != NULL);
+
+        strcpy(contacto->telefono, valor);
+        break;
+
+    case EMAIL:
+        free(contacto->email);
+        contacto->email = NULL;
+
+        len = strlen(valor);
+        contacto->email = (char*)malloc(sizeof(char) * (len + 1u));
+        assert(contacto->email != NULL);
+
+        strcpy(contacto->email, valor);
+        break;
+    }
+}
+
 uint contacto_obtener_id(Contacto contacto) {
     return contacto->id;
 }

@@ -18,6 +18,7 @@ typedef enum { NOMBRE, APELLIDO, TELEFONO, EMAIL } ContactoPropiedad;
 
 uint contacto_generar_id();
 Contacto contacto_crear(uint id, const char *nombre, const char *apellido, const char *telefono, const char *email);
+void contacto_modificar(Contacto contacto, ContactoPropiedad propiedad, const char* valor);
 uint contacto_obtener_id(Contacto contacto);
 char* contacto_obtener_nombre(Contacto contacto);
 char* contacto_obtener_apellido(Contacto contacto);
