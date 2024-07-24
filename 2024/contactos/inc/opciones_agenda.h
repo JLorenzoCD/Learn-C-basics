@@ -17,9 +17,14 @@ typedef enum {
 #define PRIMERA_OPCION MOSTRAR_TODOS_LOS_CONTACTOS
 #define ULTIMA_OPCION SALIR
 
+// Función para obtener la opción seleccionada por el usuario
 OpcionesAgenda agenda_contacto_obtener_opcion(void);
+
+// Función para convertir una opción de la agenda a una cadena de caracteres
 char *agenda_contacto_opcion_a_str(OpcionesAgenda opcion);
 
+
+// Función para obtener una opción relacionada con las propiedades de un contacto
 ContactoPropiedad contacto_propiedad_obtener_opcion(void);
 
 #endif
